@@ -6,11 +6,13 @@ JC = javac
 
 CLASSES = \
 		CardType.java \
+        CardSuit.java \
         Card.java \
         PlayerType.java \
         Player.java \
         Deck.java \
         GameTable.java \
+        BlackJack.java \
         Main.java 
 
 default: classes

@@ -1,13 +1,19 @@
 public class Player {
 
     private PlayerType role;
+    private int index;
     private int gamePlayed;
     private int gameWon;
     private int currentBet;
-    private int result;
+    private int balance;
     
-    public Player(PlayerType role) {
+    public Player(PlayerType role, int playerIndex) {
         this.role = role;
+        this.index = playerIndex;
+        this.gamePlayed = 0;
+        this.gameWon = 0;
+        this.currentBet = 0;
+        this.balance = 0;
     }
 
     public void setBet(int bet) {
@@ -25,18 +31,22 @@ public class Player {
     public void updateResult(boolean win) {
         if(win) {
             this.gameWon++;
-            result += currentBet;
+            this.balance += currentBet;
         } else {
-            result -= currentBet;
+            this.balance -= currentBet;
         }
+    }
+
+    public int getPlayerIndex() {
+        return this.index;
     }
 
     public int getCurrentBet() {
         return this.currentBet;
     }
 
-    public int getResult() {
-        return this.result;
+    public int getBalance() {
+        return this.balance;
     }
 
     public int getGamesPlayed() {
@@ -47,8 +57,8 @@ public class Player {
         return this.gameWon;
     }
 
-    public void setPlayerType(String role) {
-        this.role.setPlayerType(role);
+    public void setPlayerType(int type) {
+        this.role.setPlayerType(type);
     }
 
     public String getPlayerType() {

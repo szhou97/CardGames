@@ -1,12 +1,17 @@
 public class Card {
-    private String value;
     private CardType type;
-    public Card(CardType type) {
+    private CardSuit suit;
+    public Card(CardType type, CardSuit suit) {
         this.type = type;
-        this.value = this.type.getType();
+        this.suit = suit;
     }
 
     public String getValue() {
-        return this.value;
+        return null;
+    }
+
+    public String getCard() {
+        String str = this.type.getType() + " of " + this.suit.getSuit();
+        return str;
     }
 }

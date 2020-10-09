@@ -47,4 +47,5 @@ public class CardType {
     public String getType() {
         return this.type;
     }
+
 }

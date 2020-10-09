@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
-import java.util.Stack;
 
 public class Deck {
     private ArrayList <Card> cards;
@@ -10,13 +8,13 @@ public class Deck {
         cards = new ArrayList<Card>();
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 13; j++) {
-                cards.add(new Card(new CardType(j + 1)));
+                cards.add(new Card(new CardType(j + 1), new CardSuit(i)));
             }
         }
     }
 
     public void printDeck() {
-        this.cards.forEach((n) -> System.out.println(n.getValue()));
+        this.cards.forEach((n) -> System.out.println(n.getCard()));
     }
 
     public int deckSize() {
