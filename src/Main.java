@@ -1,8 +1,10 @@
-package CS611Assignment3.src;
-
 public class Main {
     public static void main(String[] args) {
         Deck deck = new Deck();
-        deck.printDeck();
+        System.out.println(deck.deckSize());
+        for (int i = 0; i < 5; i++) {
+            System.out.println(deck.getNextCard().getValue());
+        }
+        System.out.println(deck.deckSize());
     }
 }

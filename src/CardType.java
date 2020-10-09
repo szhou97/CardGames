@@ -1,5 +1,3 @@
-package CS611Assignment3.src;
-
 public class CardType {
     private String type;
     public CardType(int num) {
