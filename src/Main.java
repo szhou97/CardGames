@@ -15,7 +15,6 @@ public class Main {
                 } else {
                     BlackJack blackJack = new BlackJack(a);
                     blackJack.init();
-                    blackJack.printRecords();
                 } 
             } catch (NumberFormatException nfe) {
                 System.err.println("Invalid input. Minimum 1 player required"

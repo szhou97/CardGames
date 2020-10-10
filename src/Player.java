@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Player {
 
     private PlayerType role;
@@ -6,7 +8,8 @@ public class Player {
     private int gameWon;
     private int currentBet;
     private int balance;
-    
+    private ArrayList<Card> cards;
+
     public Player(PlayerType role, int playerIndex) {
         this.role = role;
         this.index = playerIndex;
@@ -14,6 +17,7 @@ public class Player {
         this.gameWon = 0;
         this.currentBet = 0;
         this.balance = 0;
+        this.cards = new ArrayList<Card>();
     }
 
     public void setBet(int bet) {
@@ -63,5 +67,30 @@ public class Player {
 
     public String getPlayerType() {
         return this.role.getPlayerType();
+    }
+
+    public void addCard(Card card, boolean faceUp) {
+        if (faceUp) 
+            card.flipCard();
+        this.cards.add(card);
+    }
+
+    public void printCards() {
+        this.cards.forEach((n) -> n.printCard());
+    }
+
+    public int getSum() {
+        boolean A = false;
+        int sum = 0;
+        for (int i = 0; i < this.cards.size(); i++) {
+            if (this.cards.get(i).getType().equals("A"))
+                A = true;
+            sum += this.cards.get(i).getValue();
+        }
+        if (A) {
+            if (sum + 10 <= 21) 
+                sum = sum + 10;
+        } 
+        return sum;
     }
 }

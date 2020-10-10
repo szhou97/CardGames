@@ -3,16 +3,16 @@ public class CardSuit {
     public CardSuit(int suit) {
         switch(suit) {
             case 0:
-                this.suit = "clubs";
+                this.suit = "clubs♣";
                 break;
             case 1:
-                this.suit = "diamonds";
+                this.suit = "diamonds♦";
                 break;
             case 2:
-                this.suit = "hearts";
+                this.suit = "hearts♥";
                 break;
             case 3:
-                this.suit = "spades";
+                this.suit = "spades♠";
                 break;
         }
     }

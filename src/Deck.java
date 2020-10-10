@@ -5,21 +5,22 @@ public class Deck {
     private ArrayList <Card> cards;
 
     public Deck() {
-        cards = new ArrayList<Card>();
+        this.cards = new ArrayList<Card>();
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 13; j++) {
-                cards.add(new Card(new CardType(j + 1), new CardSuit(i)));
+                cards.add(new Card(new CardType(j + 1), new CardSuit(i), false) );
             }
         }
     }
 
     public void printDeck() {
-        this.cards.forEach((n) -> System.out.println(n.getCard()));
+        this.cards.forEach((n) -> n.printCard());
     }
 
     public int deckSize() {
         return this.cards.size();
     }
+
     /**
      * This method generates a card randomly from the remaining deck
      * @return

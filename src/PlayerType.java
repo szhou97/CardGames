@@ -20,8 +20,4 @@ public class PlayerType {
     public void setPlayerType(int type) {
         this.type = type;
     }
-
-    public boolean equals(PlayerType type) {
-        return this.getPlayerType().equals(type.getPlayerType());
-    }
 }
