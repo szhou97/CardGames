@@ -24,6 +24,7 @@ public class BlackJack extends GameTable {
                         + "seperated by ',' \n"
                         + "Unselected dealer/player(s) will be controlled by\n"
                         + "the computer");
+        
         this.startGame();
         return 0;
     }
