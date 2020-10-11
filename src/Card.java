@@ -20,8 +20,8 @@ public class Card {
         return this.type.getValue();
     }
     
-    public void flipCard() {
-        this.faceUp = true;
+    public void flipCard(boolean up) {
+        this.faceUp = up;
     }
     
     public void printCard() {

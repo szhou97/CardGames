@@ -9,6 +9,8 @@ CLASSES = \
         CardSuit.java \
         Card.java \
         PlayerType.java \
+        Hand.java \
+        Account.java \
         Player.java \
         Deck.java \
         GameTable.java \

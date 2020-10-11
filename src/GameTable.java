@@ -51,10 +51,13 @@ public abstract class GameTable {
                             + " as "
                             + currP.getPlayerType());
             currP.printCards();
+            System.out.println("");
         }
     }
 
     public void dealCard(Player player, boolean faceUp) {
-        player.addCard(deck.getNextCard(), faceUp);
+        Card card = deck.getNextCard();
+        card.flipCard(faceUp);
+        player.dealCards(card);
     }
 }
