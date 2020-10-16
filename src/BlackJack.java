@@ -1,60 +1,87 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class BlackJack extends GameTable {
+public class BlackJack {
+
+    private BlackJackTable blackJackTable;
     private ArrayList<Player> currPlayers;
     private Player dealer;
+    private Printer printer;
+    private inputPrompt in;
     public BlackJack(int numPlayers) {
-        super(numPlayers);
+        this.currPlayers = new ArrayList<Player>();
+        this.blackJackTable = new BlackJackTable(numPlayers);
+        this.printer = new Printer();
+        this.in = new inputPrompt();
     }
+    
+    public void checkWinner() {
 
-    @Override
-    public int init() {
-        // Ensure a new deck is available at the start of each round
-        if (this.deckSize() != 52) 
-            this.newDeck();
-        
-        this.currPlayers = this.getPlayers();
-        for (int i = 0; i < this.currPlayers.size(); i++) {
-            if (this.currPlayers.get(i).getPlayerType().equals("dealer")) {
-                this.dealer = this.currPlayers.get(i);
-                break;
+    }
+    
+
+    public boolean check21(Player player) {
+        boolean blackjack = false;
+        ArrayList<Hand> hands = new ArrayList<Hand>();
+        hands = player.getHands();
+        for (int i = 0; i < hands.size(); i++) {
+            if (hands.get(i).getTotalValue() == 21) {
+                blackjack = true;
+                player.setStatus(false);
+                System.out.println("Player " 
+                            + player.getPlayerIndex()
+                            + " hit BlackJack!");
             }
         }
-        System.out.println("Select the player(s) that you would like to use\n"
-                        + "seperated by ',' \n"
-                        + "Unselected dealer/player(s) will be controlled by\n"
-                        + "the computer");
-        
-        this.startGame();
-        return 0;
+        return blackjack;
     }
 
-    public int inputPrompt() {
-        return 0;
-    }
+    public int init() {
 
-    public void startGame() {
+        // Collect user information
+        this.blackJackTable.getPlayers().participantsInformation();
+
+        // Ensure a new deck is available at the start of each round
+        this.blackJackTable.printRecords();
+        if (this.blackJackTable.deckSize() != 52) 
+            this.blackJackTable.newDeck();
+        ArrayList<Player> players = this.blackJackTable.getPlayers().getPlayers();
+        // Loop through the roster, seperate the dealer from the rest
+        // of the players
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).getPlayerType().equals("dealer"))
+                this.dealer = players.get(i);
+            else
+                this.currPlayers.add(players.get(i));
+        }
+
+        // Start off by dealer move
+        DealerMoves dm = new DealerMoves(dealer, this.currPlayers, blackJackTable);
         int count = 0;
-        boolean faceUp = true;
         while (count < 2) {
-            for (int i = 0; i < this.currPlayers.size(); i++) {
-                Player player = this.currPlayers.get(i);
-                if (player.getPlayerType().equals("player"))
-                    this.dealCard(player, faceUp);
-            }
-            if (count == 1) 
-                faceUp = false;
-            this.dealCard(this.dealer, faceUp);
-            this.printTable();
+            if (dealer.humanControl())
+                dm.makeMove(false);
+            else 
+                dm.dealCards();
             count++;
         }
-    }
+        boolean end = false;
+        while (!end) {
+            end = true;
+            for (int i = 0; i < this.currPlayers.size(); i++) {
+                Player player = this.currPlayers.get(i);
+                if (player.getStatus())
+                    end = false;     
+                if (player.humanControl()) {
+                    PlayerMoves pm = new PlayerMoves(player, this.blackJackTable);
+                    pm.makeMove();
+                }
+            }
+            printer.printTable(currPlayers);
 
-    public int dealerMove(Player dealer, boolean human) {
-        return 0;
-    }
+        }
 
-    public int playerMove(Player player, boolean human) {
+
         return 0;
     }
 }

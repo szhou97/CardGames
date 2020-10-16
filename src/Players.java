@@ -4,13 +4,14 @@ public class Players {
     private ArrayList<Player> players;
     private inputPrompt in;
     private Printer printer;
+
     public Players(ArrayList<Player> players) {
         this.players = new ArrayList<Player>();
         for (int i = 0; i < players.size(); i++) {
             this.players.add(players.get(i));
         }
         in = new inputPrompt();
-
+        printer = new Printer();
     }
 
     public void add(Player player) {
@@ -26,6 +27,7 @@ public class Players {
     }
 
     public void participantsInformation() {
+        printer.printRecord(players);
         System.out.println("Select the player(s) that you would like to use "
                         + "seperated by ',' \n"
                         + "Unselected dealer/player(s) will be controlled by ");

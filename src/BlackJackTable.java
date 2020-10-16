@@ -12,11 +12,15 @@ public class BlackJackTable extends GameTable implements CardGames{
         card.flipCard(faceUp);
         player.dealCards(card);
         this.printTable();
-
     }
 
     @Override
     public void newDeck() {
         this.deck = new Deck();
+    }
+
+    @Override
+    public int deckSize() {
+        return this.deck.deckSize();
     }
 }

@@ -5,6 +5,11 @@ public class inputPrompt {
 
     }
 
+    public void pressEnterPrompt() {
+        Scanner scan = new Scanner(System.in);
+        scan.nextLine();
+    }
+
     public int singleIntegerInput(int min, int max) {
         Scanner scan = new Scanner(System.in);
         int input = 0;

@@ -18,21 +18,25 @@ public class Printer {
     }
 
     public void printRecord(ArrayList<Player> players) {
-        System.out.println("Player    " 
-                        + "Role      " 
-                        + "Games Played     "
-                        + "Games Won     " 
-                        + "Current Bet    "
-                        + "Current balance      "
-                        + "Money Won/Loss");
-        players.forEach((n) ->
-            System.out.println(n.getPlayerIndex() + "         "
-                        + n.getPlayerType() + "        "
-                        + n.getGamesPlayed() + "                "
-                        + n.getGamesWon() + "             "
-                        + n.getCurrentBet() + "           "
-                        + n.getBalance() + "              "
-                        + n.monDiff())
-        );
+        final Object [][] table = new String[players.size() + 1][];
+        table[0] = new String[] {"Player", "Role", "Games", "Games Won",
+                                "Bet", "Balance", "Money Won"};
+        
+        for (int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            table[i + 1] = new String[] {
+                Integer.toString(player.getPlayerIndex()), 
+                player.getPlayerType(),
+                Integer.toString(player.getGamesPlayed()),
+                Integer.toString(player.getGamesWon()),
+                Integer.toString(player.getCurrentBet()),
+                Integer.toString(player.getBalance()),
+                Integer.toString(player.monDiff())
+            };
+        }
+
+        for (final Object[] row : table) {
+            System.out.format("%-15s%-15s%-15s%-15s%-15s%-15s%-15s\n", row);
+        }
     }
 }

@@ -12,9 +12,16 @@ CLASSES = \
         Hand.java \
         Account.java \
         Player.java \
+        PlayerMoves.java \
+        Players.java \
         Deck.java \
         GameTable.java \
+        CardGames.java \
+        BlackJackTable.java \
         BlackJack.java \
+        inputPrompt.java \
+        Printer.java \
+        GameInitializer.java \
         Main.java 
 
 default: classes

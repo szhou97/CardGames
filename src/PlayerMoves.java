@@ -31,13 +31,25 @@ public class PlayerMoves {
         int selection = this.prompt(d);
         switch(selection) {
             case 1:
+                System.out.println("Player " + this.player.getPlayerIndex() 
+                                    + " chooses to hit");
                 this.hit();
+                break;
             case 2:
+                System.out.println("Player " + this.player.getPlayerIndex() 
+                                    + " chooses to stand");
                 this.stand();
+                break;
             case 3:
+                System.out.println("Player " + this.player.getPlayerIndex() 
+                                    + " chooses to double up");
                 this.doubleUp();
+                break;
             case 4:
+                System.out.println("Player " + this.player.getPlayerIndex() 
+                                    + " chooses to split");
                 this.split();
+                break;
         }
     }
 

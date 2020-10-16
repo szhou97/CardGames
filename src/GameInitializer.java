@@ -2,8 +2,10 @@ import java.util.Scanner;
 
 public class GameInitializer {
     private boolean finished;
+    private Printer printer;
     public GameInitializer() {
         this.finished = false;
+        this.printer = new Printer();
     }
 
     public void start() {
