@@ -1,5 +1,5 @@
 public interface CardGames {
-    public void dealCards(Player player,boolean faceUp);
+    public Card getNextCard();
     public void newDeck();
     public int deckSize();
 }

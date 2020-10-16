@@ -6,6 +6,7 @@ public class DealerMoves {
     private Player dealer;
     private inputPrompt in;
     private int count;
+    private Hand hand;
     public DealerMoves(Player dealer, 
                 ArrayList<Player> currPlayers, 
                 BlackJackTable bt) 
@@ -15,6 +16,7 @@ public class DealerMoves {
         this.in = new inputPrompt();
         this.count = 0;
         this.currPlayers = currPlayers;
+        this.hand = dealer.getHands().get(0);
     }
 
     public void makeMove(boolean move) {
@@ -35,17 +37,21 @@ public class DealerMoves {
     public void dealCards() {
         for (int i = 0; i < this.currPlayers.size(); i++) {
             Player player = this.currPlayers.get(i);
-            bt.dealCards(player, true);
+            Card card = bt.getNextCard();
+            card.flipCard(true);
+            player.dealCards(card, hand);
         }
-        if (this.count == 1)
-            bt.dealCards(this.dealer, false);
-        else 
-            bt.dealCards(this.dealer, true);
-        
+        Card card = bt.getNextCard();
+        if (this.count != 1) {
+            card.flipCard(true);
+        }
+        dealer.dealCards(card, hand);
         this.count++;
     }
 
     public void hit() {
-        bt.dealCards(this.dealer, true);
+        Card card = bt.getNextCard();
+        card.flipCard(true);
+        dealer.dealCards(card, hand);
     }
 }

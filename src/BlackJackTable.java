@@ -6,12 +6,8 @@ public class BlackJackTable extends GameTable implements CardGames{
         this.deck = new Deck();
     }
 
-    @Override
-    public void dealCards(Player player, boolean faceUp) {
-        Card card = this.deck.getNextCard();
-        card.flipCard(faceUp);
-        player.dealCards(card);
-        this.printTable();
+    public Card getNextCard() {
+        return this.deck.getNextCard();
     }
 
     @Override

@@ -100,7 +100,7 @@ public class Player {
             n.printCards());
     }
     
-    public void dealCards(Card card) {
+    public void dealCards(Card card, Hand hand) {
         this.hands.forEach((n) -> n.addCard(card));
     }
     

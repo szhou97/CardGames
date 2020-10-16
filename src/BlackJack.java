@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class BlackJack {
 
@@ -7,12 +6,10 @@ public class BlackJack {
     private ArrayList<Player> currPlayers;
     private Player dealer;
     private Printer printer;
-    private inputPrompt in;
     public BlackJack(int numPlayers) {
         this.currPlayers = new ArrayList<Player>();
         this.blackJackTable = new BlackJackTable(numPlayers);
         this.printer = new Printer();
-        this.in = new inputPrompt();
     }
     
     public void checkWinner() {
@@ -36,7 +33,7 @@ public class BlackJack {
         return blackjack;
     }
 
-    public int init() {
+    public int run() {
 
         // Collect user information
         this.blackJackTable.getPlayers().participantsInformation();
@@ -49,10 +46,11 @@ public class BlackJack {
         // Loop through the roster, seperate the dealer from the rest
         // of the players
         for (int i = 0; i < players.size(); i++) {
-            if (players.get(i).getPlayerType().equals("dealer"))
+            if (players.get(i).getPlayerType().equals("dealer")) {
                 this.dealer = players.get(i);
-            else
+            } else {
                 this.currPlayers.add(players.get(i));
+            }
         }
 
         // Start off by dealer move
@@ -61,24 +59,27 @@ public class BlackJack {
         while (count < 2) {
             if (dealer.humanControl())
                 dm.makeMove(false);
-            else 
+            else
+            {
+                System.out.println("Dealer is dealing cards...");
                 dm.dealCards();
+            }
+
             count++;
+            printer.printTable(players);
         }
         boolean end = false;
         while (!end) {
             end = true;
             for (int i = 0; i < this.currPlayers.size(); i++) {
                 Player player = this.currPlayers.get(i);
-                if (player.getStatus())
+                if (player.getStatus()) {
                     end = false;     
-                if (player.humanControl()) {
                     PlayerMoves pm = new PlayerMoves(player, this.blackJackTable);
-                    pm.makeMove();
+                    pm.makeMove(player.humanControl());
                 }
             }
-            printer.printTable(currPlayers);
-
+            printer.printTable(players);
         }
 
 

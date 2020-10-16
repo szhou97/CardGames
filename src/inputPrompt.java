@@ -31,6 +31,9 @@ public class inputPrompt {
     public int[] multipleIntegerInput(int length, int min, int max) {
         Scanner scan = new Scanner(System.in);
         int[] input = new int[length];
+        for (int i = 0; i < input.length; i++) {
+            input[i] = Integer.MIN_VALUE;
+        }
         while (true) {
             try {
                 String[] str = scan.nextLine().split(",");

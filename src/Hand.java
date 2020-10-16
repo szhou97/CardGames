@@ -12,6 +12,10 @@ public class Hand {
         this.cards.add(card);
     }
 
+    public int getIndex() {
+        return this.index;
+    }
+    
     public Card getLastCard() {
         int index = this.cards.size() - 1;
         return this.cards.remove(index);

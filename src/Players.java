@@ -33,7 +33,6 @@ public class Players {
                         + "Unselected dealer/player(s) will be controlled by ");
         
         int[] humanControlled = in.multipleIntegerInput(players.size(), 0, players.size());
-        
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             for (int j = 0; j < humanControlled.length; j++) {

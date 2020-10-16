@@ -32,7 +32,7 @@ public class GameInitializer {
     public void run(int numPlayers) {
         while(!finished) {
             BlackJack bj = new BlackJack(numPlayers);
-            bj.init();
+            bj.run();
         }
     }
 

@@ -1,11 +1,17 @@
+import java.util.ArrayList;
+
 public class PlayerMoves {
+    
     private BlackJackTable bt;
     private Player player;
     private inputPrompt in;
+    private ArrayList<Hand> hands;
+
     public PlayerMoves(Player player, BlackJackTable bt) {
         this.bt = bt;
         this.player = player;
         this.in = new inputPrompt();
+        this.hands = player.getHands();
     }
 
     public int prompt(boolean d) {
@@ -24,16 +30,29 @@ public class PlayerMoves {
         return this.in.singleIntegerInput(min, max);
     }
   
-    public void makeMove() {
-        System.out.println("Player " + this.player.getPlayerIndex() 
-                        + " please make a move");
-        boolean d = player.checkDouble();
-        int selection = this.prompt(d);
+    public void makeMove(boolean human) {
+        int selection = 0;
+        if (human) {
+            for (int i = 0; i < hands.size(); i++) {
+                Hand hand = hands.get(i);
+                System.out.println("Player " + this.player.getPlayerIndex() 
+                        + " please make a move (hand " + i + ")");
+                boolean d = player.checkDouble();
+                selection = this.prompt(d);
+                this.moves(selection, hand);
+            }
+        } else {
+            boolean d = player.checkDouble();
+            
+        }
+        
+    }
+    public void moves(int selection, Hand hand) {
         switch(selection) {
             case 1:
                 System.out.println("Player " + this.player.getPlayerIndex() 
                                     + " chooses to hit");
-                this.hit();
+                this.hit(hand);
                 break;
             case 2:
                 System.out.println("Player " + this.player.getPlayerIndex() 
@@ -43,7 +62,7 @@ public class PlayerMoves {
             case 3:
                 System.out.println("Player " + this.player.getPlayerIndex() 
                                     + " chooses to double up");
-                this.doubleUp();
+                this.doubleUp(hand);
                 break;
             case 4:
                 System.out.println("Player " + this.player.getPlayerIndex() 
@@ -53,23 +72,29 @@ public class PlayerMoves {
         }
     }
 
-    public void hit() {
-        bt.dealCards(this.player, true);
+    public void hit(Hand hand) {
+        Card card = bt.getNextCard();
+        card.flipCard(true);
+        this.player.dealCards(card, hand);
     }
 
     public void stand() {
         this.player.setStatus(false);
     }
 
-    public void doubleUp() {
+    public void doubleUp(Hand hand) {
         int bet = player.getCurrentBet();
         this.player.setBet(2*bet);
-        bt.dealCards(this.player,true);
+        Card card = bt.getNextCard();
+        card.flipCard(true);
+        this.player.dealCards(card, hand);
         this.player.setStatus(false);
     }
 
     public void split() {
         this.player.split();
+        
+        this.makeMove(player.humanControl());
     }
 
     
