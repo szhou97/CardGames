@@ -24,6 +24,7 @@ public class GameInitializer {
 
     public void run(int numPlayers) {
         BlackJack bj = new BlackJack(numPlayers);
+        bj.firstRun();
         while(!finished) {
             bj.run();
             int selection = 0;

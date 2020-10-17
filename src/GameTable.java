@@ -14,7 +14,6 @@ public abstract class GameTable {
             Player player = new Player(new PlayerType(1), i);
             players.add(player);
         }
-        
     }
 
     public void addPlayer() {

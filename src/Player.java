@@ -100,7 +100,7 @@ public class Player {
     }
 
     public void clearHands() {
-        this.hands.clear();
+        this.hands = new ArrayList<Hand>();
         this.hands.add(new Hand());
     }
     

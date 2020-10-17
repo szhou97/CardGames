@@ -1,28 +1,25 @@
 import java.util.ArrayList;
 
 public class PlayerInformation {
-
     private ArrayList<Player> players;
     private inputPrompt in;
 
     public PlayerInformation(Players players) {
-        this.players = players.getPlayers();
         this.in = new inputPrompt();
+        this.players = players.getPlayers();
     }
 
     public void humanControlledPlayers() {
         System.out.println("Select the player(s) that you would like to use "
                         + "seperated by ',' \n"
                         + "Unselected dealer/player(s) will be controlled by ");
-        int[] humanControlled = in.multipleIntegerInput(1, players.size(), 
-                                                    0, players.size());
+        int[] hc = in.multipleIntegerInput(1, players.size(), 0, players.size());
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
-            for (int j = 0; j < humanControlled.length; j++) {
-                if (player.getPlayerIndex() == humanControlled[j]) {
+            for (int j = 0; j < hc.length; j++) {
+                if (player.getPlayerIndex() == hc[j]) {
                     player.setHumanControl(true);
-                } else {
-                    player.setHumanControl(false);
+                    break;
                 }
             }
         }
@@ -47,28 +44,29 @@ public class PlayerInformation {
         player.setBet(in.singleIntegerInput(0,player.getBalance()));
     }
 
-    public void participantsInformation(int[] humanControlled) {
+    public void setBalance(Player dealer) {
+        System.out.println("Dealer " + dealer.getPlayerIndex()
+                        + "Please enter the total balance.");
+        dealer.setBalance(in.singleIntegerInput(0, Integer.MAX_VALUE));
+    }
+
+    public void participantsInformation() {
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
-            if (player.getPlayerType().equals("player")) {
-                if (player.humanControl()) {
+            if (player.humanControl()) {
+                if (player.getPlayerType().equals("player")) {
                     if (player.getGamesPlayed() == 0) {
                         this.setBetAndBalance(player);
-                        break;
                     } else {
                         this.setBet(player);
-                        break;
                     }
                 } else {
-                    player.setBalance(100000000);
-                    if (player.getGamesPlayed() == 0)
-                        player.setInitBalance(100000000);
-                    break;
+                    this.setBalance(player);
                 }
             } else {
                 player.setBalance(100000000);
                 if (player.getGamesPlayed() == 0)
-                    player.setInitBalance(100000000);
+                    player.setInitBalance(player.getBalance());
                 if (player.getPlayerType().equals("player"))
                     player.setBet(10);
             }

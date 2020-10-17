@@ -14,18 +14,21 @@ public class BlackJack {
         this.playerInfo = new PlayerInformation(this.blackJackTable.getPlayers());
     }
     public void firstRun() {
+        ArrayList<Player> players = this.blackJackTable.getPlayers().getPlayers();
         this.playerInfo.humanControlledPlayers();
         this.run();
     }
     public void run() {
-        printer.printRecord(this.blackJackTable.getPlayers().getPlayers());
+        this.blackJackTable.getPlayers().resetPlayers();
+        ArrayList<Player> players = this.blackJackTable.getPlayers().getPlayers();
+        
+        this.playerInfo.participantsInformation();
+        this.blackJackTable.printRecords();
         this.blackJackTable.incrementGamesPlayed();
 
         // Ensure a new deck is available at the start of each round
-        this.blackJackTable.printRecords();
         if (this.blackJackTable.deckSize() != 52) 
             this.blackJackTable.newDeck();
-        ArrayList<Player> players = this.blackJackTable.getPlayers().getPlayers();
         // Loop through the roster, seperate the dealer from the rest
         // of the players
         for (int i = 0; i < players.size(); i++) {
@@ -49,7 +52,6 @@ public class BlackJack {
                 System.out.println("Dealer is dealing cards...");
                 dm.dealCards();
             }
-
             count++;
             printer.printTable(players);
         }
@@ -65,7 +67,11 @@ public class BlackJack {
                     jd.bust(player);
                 }
             }
-            printer.printTable(players);
+            if (end) {
+                break;
+            } else {
+                printer.printTable(players);
+            }
         }
         boolean valid = false;
         for (Player player : currPlayers) {
@@ -91,5 +97,7 @@ public class BlackJack {
             }
             jd.checkWinner(currPlayers);
         }
+
+        printer.printRecord(players);
     }
 }

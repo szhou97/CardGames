@@ -33,23 +33,28 @@ public class JudgeAndDistributor {
     public void checkWinner(ArrayList<Player> players) {
         Hand dealerHand = dealer.getHands().get(0);
         int dealerValue = dealerHand.getTotalValue();
-        for (Player player : players) {
-            for (Hand hand : player.getHands()) {
-                if (hand.bust()) {
-                    continue;
-                }
-                int playerValue = hand.getTotalValue();
-                if (playerValue < dealerValue) {
-                    this.distributor(player, false);
-                } else if (playerValue > dealerValue){
-                    this.distributor(player, true);
-                } else {
-                    if (hand.isNaturalBlackJack() && !dealerHand.isNaturalBlackJack()) {
-                        this.distributor(player, true);
-                    } else if (!hand.isNaturalBlackJack() && dealerHand.isNaturalBlackJack()) {
-                        this.distributor(player, false);
-                    } else {
-                        System.out.println("Draw! Bet returned to player");
+        if (dealerValue > 21) {
+            for (Player player : players) {
+                this.distributor(player, true);
+            }
+        } else {
+            for (Player player : players) {
+                for (Hand hand : player.getHands()) {
+                    if (!hand.bust()) {
+                        int playerValue = hand.getTotalValue();
+                        if (playerValue < dealerValue) {
+                            this.distributor(player, false);
+                        } else if (playerValue > dealerValue){
+                            this.distributor(player, true);
+                        } else {
+                            if (hand.isNaturalBlackJack() && !dealerHand.isNaturalBlackJack()) {
+                                this.distributor(player, true);
+                            } else if (!hand.isNaturalBlackJack() && dealerHand.isNaturalBlackJack()) {
+                                this.distributor(player, false);
+                            } else {
+                            System.out.println("Draw! Bet returned to player");
+                            }
+                        }
                     }
                 }
             }
