@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Account {
     private int balance;
     private int bet;
@@ -14,7 +12,7 @@ public class Account {
     }
 
     public int monDiff() {
-        return this.initBalance - this.balance;
+        return this.balance - this.initBalance;
     }
     
     public void setBalance(int balance) {

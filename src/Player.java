@@ -2,35 +2,33 @@ import java.util.ArrayList;
 
 public class Player {
 
+    private int index;
     private PlayerType role;
     private Account account;
-    private int index;
     private int gamePlayed;
-    private int gameWon;
     private ArrayList<Hand> hands;
     private boolean human;
-    private boolean active;
 
     public Player(PlayerType role, int playerIndex) {
         this.role = role;
         this.index = playerIndex;
         this.gamePlayed = 0;
-        this.gameWon = 0;
         this.hands = new ArrayList<Hand>();
         this.hands.add(new Hand());
         this.account = new Account();
         this.human = false;
-        this.active = true;
-    }
-
-    public void setStatus(boolean active) {
-        this.active = active;
-    }
-
-    public boolean getStatus() {
-        return this.active;
     }
    
+    public boolean getStatus() {
+        boolean active = false;
+        for (Hand hand : hands) {
+            if (hand.getStatus()) {
+                active = true;
+            }
+        }
+        return active;
+    }
+
     public void setInitBalance(int b) {
         this.account.setInitBalance(b);
     }
@@ -67,14 +65,6 @@ public class Player {
         this.gamePlayed++;
     }
 
-    public int getGamesWon() {
-        return this.gameWon;
-    }
-
-    public void incrementGameWon() {
-        this.gameWon++;
-    }
-
     public void setBet(int bet) {
         this.account.setBet(bet);
     }
@@ -91,10 +81,6 @@ public class Player {
         return this.account.getBalance();
     }
 
-    public void updateAccount(boolean win) {
-        this.account.updateAccount(win);
-    }
-
     public void printCards() {
         this.hands.forEach((n) -> 
             n.printCards());
@@ -108,11 +94,16 @@ public class Player {
         Hand hand = new Hand();
         hand.addCard(this.hands.get(0).getLastCard());
     }
-    
+   
     public ArrayList<Hand> getHands() {
         return this.hands;
     }
 
+    public void clearHands() {
+        this.hands.clear();
+        this.hands.add(new Hand());
+    }
+    
     public boolean checkDouble() {
         boolean d = false;
         for (int i = 0; i < this.hands.size(); i++) {
@@ -120,10 +111,5 @@ public class Player {
             if (d) { return d; }
         }
         return d;
-    }
-    
-    public void updateResult(boolean win) {
-        if (win) gameWon++;
-        this.account.updateAccount(win);
     }
 }

@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class PlayerMoves {
-    
+
     private BlackJackTable bt;
     private Player player;
     private inputPrompt in;
@@ -35,15 +36,33 @@ public class PlayerMoves {
         if (human) {
             for (int i = 0; i < hands.size(); i++) {
                 Hand hand = hands.get(i);
-                System.out.println("Player " + this.player.getPlayerIndex() 
-                        + " please make a move (hand " + i + ")");
-                boolean d = player.checkDouble();
-                selection = this.prompt(d);
-                this.moves(selection, hand);
+                if (hand.getStatus()) {
+                    System.out.println("Player " + this.player.getPlayerIndex() 
+                            + " please make a move (hand " + i + ")");
+                    boolean d = player.checkDouble();
+                    selection = this.prompt(d);
+                    this.moves(selection, hand);
+                }
             }
         } else {
-            boolean d = player.checkDouble();
-            
+            for (int i = 0; i < hands.size(); i++) {
+                Hand hand = hands.get(i);
+                if (hand.getStatus()) {
+                    boolean d = player.checkDouble();
+                    if (d) {
+                        selection = 4;
+                    } else {
+                        if (hand.getTotalValue() >= 18) {
+                            selection = 2;
+                        } else if (hand.getTotalValue() >= 10) {
+                            selection = 3;
+                        } else {
+                            selection = 1;
+                        }
+                    }
+                    this.moves(selection, hand);
+                }   
+            }
         }
         
     }
@@ -57,7 +76,7 @@ public class PlayerMoves {
             case 2:
                 System.out.println("Player " + this.player.getPlayerIndex() 
                                     + " chooses to stand");
-                this.stand();
+                this.stand(hand);
                 break;
             case 3:
                 System.out.println("Player " + this.player.getPlayerIndex() 
@@ -78,8 +97,8 @@ public class PlayerMoves {
         this.player.dealCards(card, hand);
     }
 
-    public void stand() {
-        this.player.setStatus(false);
+    public void stand(Hand hand) {
+        hand.setStatus(false);
     }
 
     public void doubleUp(Hand hand) {
@@ -88,12 +107,11 @@ public class PlayerMoves {
         Card card = bt.getNextCard();
         card.flipCard(true);
         this.player.dealCards(card, hand);
-        this.player.setStatus(false);
+        hand.setStatus(false);
     }
 
     public void split() {
         this.player.split();
-        
         this.makeMove(player.humanControl());
     }
 

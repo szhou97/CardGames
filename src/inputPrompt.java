@@ -28,16 +28,16 @@ public class inputPrompt {
         return input;
     }
 
-    public int[] multipleIntegerInput(int length, int min, int max) {
+    public int[] multipleIntegerInput(int minLength, int maxLength, int min, int max) {
         Scanner scan = new Scanner(System.in);
-        int[] input = new int[length];
+        int[] input = new int[maxLength];
         for (int i = 0; i < input.length; i++) {
             input[i] = Integer.MIN_VALUE;
         }
         while (true) {
             try {
                 String[] str = scan.nextLine().split(",");
-                if (str.length > input.length) {
+                if (str.length > input.length || str.length < minLength) {
                     throw new NumberFormatException();
                 }
                 for (int i = 0; i < str.length; i++) {

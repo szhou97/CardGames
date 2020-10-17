@@ -3,15 +3,31 @@ public abstract class GameTable {
     
     private Printer printer;
     private Players players;
-
+    private int numPlayers;
     public GameTable(int numPlayers) {
+        this.numPlayers = numPlayers;
         this.printer = new Printer();
         this.players = new Players(new ArrayList<Player>());
-        this.players.add(new Player(new PlayerType(0), 0));
+        Player dealer = new Player(new PlayerType(0), 0);
+        this.players.add(dealer);
         for (int i = 1; i <= numPlayers; i++) {
-            players.add(new Player(new PlayerType(1), i));
+            Player player = new Player(new PlayerType(1), i);
+            players.add(player);
         }
         
+    }
+
+    public void addPlayer() {
+        Player player = new Player(new PlayerType(1), numPlayers + 1);
+        player.incrementGamePlayed();
+        this.players.add(player);
+        this.numPlayers++;
+    }
+
+    public void incrementGamesPlayed() {
+        for (Player player : this.players.getPlayers()) {
+            player.incrementGamePlayed();
+        }
     }
 
     public Players getPlayers() {

@@ -6,37 +6,20 @@ public class BlackJack {
     private ArrayList<Player> currPlayers;
     private Player dealer;
     private Printer printer;
+    private PlayerInformation playerInfo;
     public BlackJack(int numPlayers) {
         this.currPlayers = new ArrayList<Player>();
         this.blackJackTable = new BlackJackTable(numPlayers);
         this.printer = new Printer();
+        this.playerInfo = new PlayerInformation(this.blackJackTable.getPlayers());
     }
-    
-    public void checkWinner() {
-
+    public void firstRun() {
+        this.playerInfo.humanControlledPlayers();
+        this.run();
     }
-    
-
-    public boolean check21(Player player) {
-        boolean blackjack = false;
-        ArrayList<Hand> hands = new ArrayList<Hand>();
-        hands = player.getHands();
-        for (int i = 0; i < hands.size(); i++) {
-            if (hands.get(i).getTotalValue() == 21) {
-                blackjack = true;
-                player.setStatus(false);
-                System.out.println("Player " 
-                            + player.getPlayerIndex()
-                            + " hit BlackJack!");
-            }
-        }
-        return blackjack;
-    }
-
-    public int run() {
-
-        // Collect user information
-        this.blackJackTable.getPlayers().participantsInformation();
+    public void run() {
+        printer.printRecord(this.blackJackTable.getPlayers().getPlayers());
+        this.blackJackTable.incrementGamesPlayed();
 
         // Ensure a new deck is available at the start of each round
         this.blackJackTable.printRecords();
@@ -52,6 +35,8 @@ public class BlackJack {
                 this.currPlayers.add(players.get(i));
             }
         }
+
+        JudgeAndDistributor jd = new JudgeAndDistributor(dealer);
 
         // Start off by dealer move
         DealerMoves dm = new DealerMoves(dealer, this.currPlayers, blackJackTable);
@@ -77,12 +62,34 @@ public class BlackJack {
                     end = false;     
                     PlayerMoves pm = new PlayerMoves(player, this.blackJackTable);
                     pm.makeMove(player.humanControl());
+                    jd.bust(player);
                 }
             }
             printer.printTable(players);
         }
+        boolean valid = false;
+        for (Player player : currPlayers) {
+            for (Hand hand : player.getHands()) {
+                if (hand.getTotalValue() <= 21) {
+                    valid = true;
+                    break;
+                }
+            }
+        }
+        if (valid) {
+            Hand hand = dealer.getHands().get(0);
+            System.out.println("Dealer will flip the second card.");
+            hand.flipLastCard();
+            printer.printTable(players);
 
-
-        return 0;
+            while(hand.getTotalValue() < 17) {
+                if (dealer.humanControl())
+                    dm.makeMove(true);
+                else   
+                    dm.hit();
+                printer.printTable(players);
+            }
+            jd.checkWinner(currPlayers);
+        }
     }
 }

@@ -14,6 +14,7 @@ CLASSES = \
         Player.java \
         PlayerMoves.java \
         Players.java \
+        PlayerInformation.java \
         Deck.java \
         GameTable.java \
         CardGames.java \

@@ -30,8 +30,6 @@ public class DealerMoves {
             in.pressEnterPrompt();
             this.hit();
         }
-        
-
     }
 
     public void dealCards() {

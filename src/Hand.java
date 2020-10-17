@@ -3,15 +3,37 @@ import java.util.ArrayList;
 public class Hand {
     private int index;
     private ArrayList<Card> cards;
+    private boolean active;
+    private boolean bust;
     public Hand() {
         this.cards = new ArrayList<Card>();
+        this.active = true;
+        this.bust = false;
     }
 
+    public void setBust() {
+        this.bust = true;
+    }
+
+    public boolean bust() {
+        return this.bust;
+    }
+    public boolean getStatus() {
+        return this.active;
+    }
     
+    public void setStatus(boolean active) {
+        this.active = active;
+    }
+
     public void addCard(Card card) {
         this.cards.add(card);
     }
 
+    public void flipLastCard() {
+        this.cards.get(this.cards.size() - 1).flipCard(true);
+    }
+    
     public int getIndex() {
         return this.index;
     }
@@ -27,15 +49,13 @@ public class Hand {
     }
 
     public boolean checkDouble() {
-        Card card1 = this.cards.get(0);
-        for (int i = 1; i < this.cards.size(); i++) {
-            if (this.cards.get(i).getValue() == card1.getValue()) {
-                return true;
-            } else {
-                card1 = this.cards.get(i);
-            }
+        if (this.cards.size() >= 2) {
+            Card card1 = this.cards.get(this.cards.size() - 1);
+            Card card2 = this.cards.get(this.cards.size() - 2);
+            return card1.getType().equals(card2.getType());
+        } else {
+            return false;
         }
-        return false;
     }
 
     public int getTotalValue() {
@@ -55,4 +75,9 @@ public class Hand {
 
         return value;
     }
+
+    public boolean isNaturalBlackJack() {
+        return this.cards.size() == 2;
+    }
+
 }
