@@ -10,7 +10,9 @@ public class JudgeAndDistributor {
         ArrayList<Hand> hands = new ArrayList<Hand>();
         hands = player.getHands();
         for (int i = 0; i < hands.size(); i++) {
-            if (hands.get(i).getTotalValue() > 21) {
+            int value = hands.get(i).getTotalValue();
+            System.out.println(value);
+            if (value > 21) {
                 hands.get(i).setStatus(false);
                 System.out.println("Player "
                             + player.getPlayerIndex()
@@ -19,7 +21,7 @@ public class JudgeAndDistributor {
                             + " is BUST!");
                 hands.get(i).setBust();
                 this.distributor(player, false);
-            } else if (hands.get(i).getTotalValue() == 21) {
+            } else if (value == 21) {
                 System.out.println("Player "
                             + player.getPlayerIndex()
                             +" hand "
@@ -33,6 +35,7 @@ public class JudgeAndDistributor {
     public void checkWinner(ArrayList<Player> players) {
         Hand dealerHand = dealer.getHands().get(0);
         int dealerValue = dealerHand.getTotalValue();
+        System.out.println("Dealer's card sum is  " + dealerValue);
         if (dealerValue > 21) {
             for (Player player : players) {
                 this.distributor(player, true);
@@ -52,7 +55,8 @@ public class JudgeAndDistributor {
                             } else if (!hand.isNaturalBlackJack() && dealerHand.isNaturalBlackJack()) {
                                 this.distributor(player, false);
                             } else {
-                            System.out.println("Draw! Bet returned to player");
+                                System.out.println("Draw! Bet returned to player " 
+                                                    + player.getPlayerIndex());
                             }
                         }
                     }
@@ -75,5 +79,7 @@ public class JudgeAndDistributor {
             player.setBalance(playerBalance - bet);
             dealer.setBalance(dealerBalance + bet);
         }
+        player.setTotal();
+        dealer.setTotal();
     }
 }

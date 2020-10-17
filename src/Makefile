@@ -13,6 +13,7 @@ CLASSES = \
         Account.java \
         Player.java \
         PlayerMoves.java \
+        DealerMoves.java \
         Players.java \
         PlayerInformation.java \
         Deck.java \
@@ -20,6 +21,7 @@ CLASSES = \
         CardGames.java \
         BlackJackTable.java \
         BlackJack.java \
+        JudgeAndDistributor.java \
         inputPrompt.java \
         Printer.java \
         GameInitializer.java \

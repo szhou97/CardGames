@@ -22,6 +22,7 @@ public class Player {
     public boolean getStatus() {
         boolean active = false;
         for (Hand hand : hands) {
+            System.out.println(hand.getStatus());
             if (hand.getStatus()) {
                 active = true;
             }
@@ -33,8 +34,12 @@ public class Player {
         this.account.setInitBalance(b);
     }
 
-    public int monDiff() {
-        return this.account.monDiff();
+    public int getTotal() {
+        return this.account.getTotal();
+    }
+
+    public void setTotal() {
+        this.account.setTotal();
     }
 
     public boolean humanControl() {
@@ -82,17 +87,21 @@ public class Player {
     }
 
     public void printCards() {
-        this.hands.forEach((n) -> 
-            n.printCards());
+        for(int i = 0; i < this.hands.size(); i++) {
+            Hand hand = hands.get(i);
+            System.out.println("Hand : " + i);
+            hand.printCards();
+        }
     }
     
     public void dealCards(Card card, Hand hand) {
-        this.hands.forEach((n) -> n.addCard(card));
+        hand.addCard(card);
     }
     
     public void split() {
         Hand hand = new Hand();
         hand.addCard(this.hands.get(0).getLastCard());
+        hands.add(hand);
     }
    
     public ArrayList<Hand> getHands() {

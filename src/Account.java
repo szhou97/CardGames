@@ -2,9 +2,18 @@ public class Account {
     private int balance;
     private int bet;
     private int initBalance;
+    private int total;
 
     public Account() {
-        
+        this.total = 0;
+    }
+
+    public void setTotal() {
+        this.total += this.monDiff();
+    }
+
+    public int getTotal() {
+        return this.total;
     }
 
     public void setInitBalance(int b) {

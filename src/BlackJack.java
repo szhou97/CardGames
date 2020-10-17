@@ -7,6 +7,7 @@ public class BlackJack {
     private Player dealer;
     private Printer printer;
     private PlayerInformation playerInfo;
+
     public BlackJack(int numPlayers) {
         this.currPlayers = new ArrayList<Player>();
         this.blackJackTable = new BlackJackTable(numPlayers);
@@ -14,21 +15,8 @@ public class BlackJack {
         this.playerInfo = new PlayerInformation(this.blackJackTable.getPlayers());
     }
     public void firstRun() {
-        ArrayList<Player> players = this.blackJackTable.getPlayers().getPlayers();
         this.playerInfo.humanControlledPlayers();
-        this.run();
-    }
-    public void run() {
-        this.blackJackTable.getPlayers().resetPlayers();
         ArrayList<Player> players = this.blackJackTable.getPlayers().getPlayers();
-        
-        this.playerInfo.participantsInformation();
-        this.blackJackTable.printRecords();
-        this.blackJackTable.incrementGamesPlayed();
-
-        // Ensure a new deck is available at the start of each round
-        if (this.blackJackTable.deckSize() != 52) 
-            this.blackJackTable.newDeck();
         // Loop through the roster, seperate the dealer from the rest
         // of the players
         for (int i = 0; i < players.size(); i++) {
@@ -38,6 +26,18 @@ public class BlackJack {
                 this.currPlayers.add(players.get(i));
             }
         }
+        this.run();
+    }
+    public void run() {
+        ArrayList<Player> players = this.blackJackTable.getPlayers().getPlayers();
+        this.blackJackTable.getPlayers().resetPlayers();
+        this.playerInfo.participantsInformation();
+        this.blackJackTable.printRecords();
+        this.blackJackTable.incrementGamesPlayed();
+
+        // Ensure a new deck is available at the start of each round
+        if (this.blackJackTable.deckSize() != 52) 
+            this.blackJackTable.newDeck();
 
         JudgeAndDistributor jd = new JudgeAndDistributor(dealer);
 
@@ -55,6 +55,11 @@ public class BlackJack {
             count++;
             printer.printTable(players);
         }
+
+        for (Player player : currPlayers) {
+            jd.bust(player);
+        }
+
         boolean end = false;
         while (!end) {
             end = true;

@@ -30,7 +30,7 @@ public class PlayerInformation {
         System.out.println("Please enter the total amount that " 
                                         + "you would like to enter today, "
                                         + "followed by the bet for the first "
-                                        + "round, seperated by ',' \n");
+                                        + "round, seperated by ','");
         int[] accInquiry = in.multipleIntegerInput(2,2,0,Integer.MAX_VALUE);
         player.setBalance(accInquiry[0]);
         player.setInitBalance(accInquiry[0]);
@@ -58,17 +58,55 @@ public class PlayerInformation {
                     if (player.getGamesPlayed() == 0) {
                         this.setBetAndBalance(player);
                     } else {
-                        this.setBet(player);
+                        if (player.getBalance() == 0) {
+                            System.out.println("Empty balance");
+                            System.out.println("1: Continue with more money input\n"
+                                + "2: Quit");
+                            int sel = in.singleIntegerInput(1, 3);
+                            if (sel == 1) {
+                                this.setBetAndBalance(player);
+                                player.setInitBalance(player.getBalance());
+                            } else {
+                                System.exit(0);
+                            }
+                        } else {
+                            this.setBet(player);
+                        }
                     }
                 } else {
-                    this.setBalance(player);
+                    if (player.getGamesPlayed() == 0) {
+                        this.setBalance(player);
+                    } else {
+                        if (player.getBalance() <= 0) {
+                            System.out.println("THE CASINO HAS GONE BANKRUPT\n"
+                                + "PROGRAM WILL SHUT DOWN");
+                            System.exit(0);
+                        }
+                    }
                 }
             } else {
-                player.setBalance(100000000);
-                if (player.getGamesPlayed() == 0)
+                if (player.getGamesPlayed() == 0) {
+                    player.setBalance(Integer.MAX_VALUE);
                     player.setInitBalance(player.getBalance());
-                if (player.getPlayerType().equals("player"))
-                    player.setBet(10);
+                    if (player.getPlayerType().equals("player")) {
+                        player.setBet(200);
+                    }
+                } else {
+                    if (player.getPlayerType().equals("player")) {
+                        if (player.getBalance() <= 0) {
+                            player.setBalance(Integer.MAX_VALUE);
+                            player.setInitBalance(player.getBalance());
+                        } else {
+                            player.setBet(10);
+                        }
+                    } else {
+                        if (player.getBalance() <= 0) {
+                            System.out.println("THE CASINO RAN OUT OF MONEY"
+                                + "PROGRAM WILL SHUT DOWN");
+                            System.exit(0);
+                        }
+                    }
+                }
             }
         }
     }

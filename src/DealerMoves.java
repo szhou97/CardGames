@@ -19,6 +19,10 @@ public class DealerMoves {
         this.hand = dealer.getHands().get(0);
     }
 
+    public void reset() {
+        this.count = 0;
+    }
+    
     public void makeMove(boolean move) {
         System.out.println("DEALER: Please make a move");
         if (!move) {
@@ -35,9 +39,12 @@ public class DealerMoves {
     public void dealCards() {
         for (int i = 0; i < this.currPlayers.size(); i++) {
             Player player = this.currPlayers.get(i);
-            Card card = bt.getNextCard();
-            card.flipCard(true);
-            player.dealCards(card, hand);
+            for (Hand hand : player.getHands()) {
+                Card card = bt.getNextCard();
+                card.flipCard(true);
+                player.dealCards(card, hand);
+            }
+            
         }
         Card card = bt.getNextCard();
         if (this.count != 1) {

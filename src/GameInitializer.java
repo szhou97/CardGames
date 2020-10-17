@@ -26,11 +26,10 @@ public class GameInitializer {
         BlackJack bj = new BlackJack(numPlayers);
         bj.firstRun();
         while(!finished) {
-            bj.run();
             int selection = 0;
             selection = this.restart();
             if (selection == 1) {
-                continue;
+                bj.run();
             } else if (selection == 2) {
                 finished = true;
             }

@@ -44,7 +44,6 @@ public class Hand {
     }
     
     public void printCards() {
-        System.out.println("Hand : " + this.index);
         this.cards.forEach((n) -> n.printCard());
     }
 
@@ -77,7 +76,16 @@ public class Hand {
     }
 
     public boolean isNaturalBlackJack() {
-        return this.cards.size() == 2;
+        boolean naturalBlack = false;
+        if (this.cards.size() == 2) {
+            for (Card card : this.cards) {
+                if (card.getType().equals("A")) {
+                    naturalBlack = true;
+                    break;
+                }
+            }
+        }
+        return naturalBlack && this.getTotalValue() == 21;
     }
 
 }
