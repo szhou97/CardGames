@@ -1,5 +1,12 @@
+/**
+ * A class representing the card type
+ */
 public class CardType {
     private String type;
+    /**
+     * Constructing a card type
+     * @param num
+     */
     public CardType(int num) {
         switch(num) {
             case 1:

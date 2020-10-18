@@ -1,5 +1,8 @@
 import java.util.ArrayList;
-
+/**
+ * A class dedicated to moves that are made by a dealer. This class will have 
+ * access to all the current players on the dealer's table
+ */
 public class DealerMoves {
     private BlackJackTable bt;
     private ArrayList<Player> currPlayers;
@@ -7,10 +10,12 @@ public class DealerMoves {
     private inputPrompt in;
     private int count;
     private Hand hand;
+    /**
+     * Constructor
+     */
     public DealerMoves(Player dealer, 
                 ArrayList<Player> currPlayers, 
-                BlackJackTable bt) 
-    {
+                BlackJackTable bt) {
         this.bt = bt;
         this.dealer = dealer;
         this.in = new inputPrompt();
@@ -19,10 +24,18 @@ public class DealerMoves {
         this.hand = dealer.getHands().get(0);
     }
 
+    /**
+     * Called when a new round of game starts
+     */
     public void reset() {
         this.count = 0;
     }
     
+    /**
+     * Make a dealer move. When true, dealer can hit. Otherwise, dealer can 
+     * only press enter
+     * @param move
+     */
     public void makeMove(boolean move) {
         System.out.println("DEALER: Please make a move");
         if (!move) {
@@ -36,6 +49,9 @@ public class DealerMoves {
         }
     }
 
+    /**
+     * Deal a round of cards for the current players
+     */
     public void dealCards() {
         for (int i = 0; i < this.currPlayers.size(); i++) {
             Player player = this.currPlayers.get(i);
@@ -54,6 +70,9 @@ public class DealerMoves {
         this.count++;
     }
 
+    /**
+     * Dealer hits and obtains a new card
+     */
     public void hit() {
         Card card = bt.getNextCard();
         card.flipCard(true);

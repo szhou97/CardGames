@@ -1,5 +1,12 @@
+/**
+ * A class representing the card suit
+ */
 public class CardSuit {
     private String suit;
+    /**
+     * Construct the card suit
+     * @param suit
+     */
     public CardSuit(int suit) {
         switch(suit) {
             case 0:

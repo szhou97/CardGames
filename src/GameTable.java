@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+/**
+ * An abstract class that can be used for any game with a dealer and multiple
+ * players. Contains method to initialize, update and print player information
+ */
 public abstract class GameTable {
     
     private Printer printer;

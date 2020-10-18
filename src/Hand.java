@@ -1,7 +1,8 @@
 import java.util.ArrayList;
-
+/**
+ * Represent a hand of a player. A hand object is dedicated to maintain cards
+ */
 public class Hand {
-    private int index;
     private ArrayList<Card> cards;
     private boolean active;
     private boolean bust;
@@ -34,10 +35,6 @@ public class Hand {
         this.cards.get(this.cards.size() - 1).flipCard(true);
     }
     
-    public int getIndex() {
-        return this.index;
-    }
-    
     public Card getLastCard() {
         int index = this.cards.size() - 1;
         return this.cards.remove(index);
@@ -45,6 +42,7 @@ public class Hand {
     
     public void printCards() {
         this.cards.forEach((n) -> n.printCard());
+        System.out.println("Total value :" + this.getTotalValue());
     }
 
     public boolean checkDouble() {
@@ -76,14 +74,21 @@ public class Hand {
     }
 
     public boolean isNaturalBlackJack() {
+        boolean a = false;
+        boolean ten = false;
         boolean naturalBlack = false;
         if (this.cards.size() == 2) {
             for (Card card : this.cards) {
                 if (card.getType().equals("A")) {
-                    naturalBlack = true;
-                    break;
+                    a = true;
+                }
+                if (card.getValue() == 10) {
+                    ten = true;
                 }
             }
+        }
+        if (a && !ten) {
+            naturalBlack = true;
         }
         return naturalBlack && this.getTotalValue() == 21;
     }

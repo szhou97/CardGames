@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
-
+/**
+ * A deck class that contains a standard deck of 52 cards. 
+ */
 public class Deck {
     private ArrayList <Card> cards;
 

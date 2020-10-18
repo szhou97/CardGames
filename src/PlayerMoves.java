@@ -1,5 +1,8 @@
 import java.util.ArrayList;
-
+/**
+ * The PlayerMoves class contains the moves that can be performed by a player
+ * in a black jack game
+ */
 public class PlayerMoves {
 
     private BlackJackTable bt;
@@ -16,6 +19,9 @@ public class PlayerMoves {
         this.human = false;
     }
 
+    /**
+     * Let's user select moves
+     */
     public int prompt(boolean d) {
         int min = 1, max = 1;
         System.out.print("1: Hit");
@@ -75,12 +81,13 @@ public class PlayerMoves {
                 Hand hand = hands.get(i);
                 if (hand.getStatus()) {
                     boolean d = player.checkDouble();
-                    if (d) {
+                    if (d && player.getCurrentBet() * 2 <= player.getBalance()) {
                         selection = 4;
                     } else {
                         if (hand.getTotalValue() >= 18) {
                             selection = 2;
-                        } else if (hand.getTotalValue() >= 10) {
+                        } else if (hand.getTotalValue() >= 14
+                            && player.getCurrentBet() * 2 <= player.getBalance()) {
                             selection = 3;
                         } else {
                             selection = 1;
@@ -90,8 +97,11 @@ public class PlayerMoves {
                 }   
             }
         }
-        
     }
+
+    /**
+     * A set of moves that can be done by a player
+     */
     public void moves(int selection, Hand hand) {
         switch(selection) {
             case 1:
@@ -118,16 +128,25 @@ public class PlayerMoves {
         }
     }
 
+    /**
+     * Player takes another card
+     */
     public void hit(Hand hand) {
         Card card = bt.getNextCard();
         card.flipCard(true);
         this.player.dealCards(card, hand);
     }
 
+    /**
+     * Player stop taking cards
+     */
     public void stand(Hand hand) {
         hand.setStatus(false);
     }
 
+    /**
+     * Player doubles bet, then hit and stand
+     */
     public void doubleUp(Hand hand) {
         int bet = player.getCurrentBet();
         this.player.setBet(2*bet);
@@ -137,6 +156,9 @@ public class PlayerMoves {
         hand.setStatus(false);
     }
 
+    /**
+     * Player splits into two hands. The two hands will move independently
+     */
     public void split() {
         this.makeMove(human);
         player.printCards();

@@ -1,4 +1,6 @@
-
+/**
+ * A class dedicated to run a game repetitively unless quit by the user
+ */
 public class GameInitializer {
 
     private boolean finished;
@@ -8,13 +10,19 @@ public class GameInitializer {
         this.in = new inputPrompt();
     }
 
+    /**
+     * First start
+     */
     public void start() {
         System.out.println("Welcome to BlackJack\n"
                         + "Please enter the number of players,"
                         + " excluding the dealer.");
         this.run(in.singleIntegerInput(1, 5));
     }
-    
+    /**
+     * Consequent starts
+     * @return
+     */
     public int restart() {
         System.out.println("Please select what to do next");
         System.out.println("1: Another game\n"
@@ -22,6 +30,9 @@ public class GameInitializer {
         return in.singleIntegerInput(1, 4);
     }
 
+    /**
+     * Running game repetitively
+     */
     public void run(int numPlayers) {
         BlackJack bj = new BlackJack(numPlayers);
         bj.firstRun();

@@ -1,5 +1,10 @@
 import java.util.ArrayList;
-
+/**
+ * The player object contains a PlayerType object, an Account object and 
+ * 1-2 Hand object depending on player moves during the game. It serves 
+ * the purpose of storing/updating any information related to a single 
+ * player
+ */
 public class Player {
 
     private int index;
@@ -22,7 +27,6 @@ public class Player {
     public boolean getStatus() {
         boolean active = false;
         for (Hand hand : hands) {
-            System.out.println(hand.getStatus());
             if (hand.getStatus()) {
                 active = true;
             }
@@ -38,9 +42,6 @@ public class Player {
         return this.account.getTotal();
     }
 
-    public void setTotal() {
-        this.account.setTotal();
-    }
 
     public boolean humanControl() {
         return this.human;
@@ -86,6 +87,12 @@ public class Player {
         return this.account.getBalance();
     }
 
+    public void winOrLose(int num) {
+        int balance = this.account.getBalance();
+        this.account.setBalance(balance + num);
+        this.account.modifyTotal(num);
+    }
+    
     public void printCards() {
         for(int i = 0; i < this.hands.size(); i++) {
             Hand hand = hands.get(i);

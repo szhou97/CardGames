@@ -1,5 +1,7 @@
 import java.util.ArrayList;
-
+/**
+ * The Players object contains a list of Player objects. 
+ */
 public class Players {
     private ArrayList<Player> players;
 

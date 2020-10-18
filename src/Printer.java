@@ -1,5 +1,8 @@
 import java.util.ArrayList;
-
+/**
+ * The printer class prints the current table or record 
+ * according to given format
+ */
 public class Printer {
     public Printer() {
 

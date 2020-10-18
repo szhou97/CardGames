@@ -1,15 +1,25 @@
 import java.util.Scanner;
-
+/**
+ * A class dedicated to take input from the user
+ */
 public class inputPrompt {
     public inputPrompt() {
 
     }
-
+    /**
+     * Takes one ENTER key
+     */
     public void pressEnterPrompt() {
         Scanner scan = new Scanner(System.in);
         scan.nextLine();
     }
 
+    /**
+     * Takes an integer i that is min<i<max
+     * @param min
+     * @param max
+     * @return
+     */
     public int singleIntegerInput(int min, int max) {
         Scanner scan = new Scanner(System.in);
         int input = 0;
@@ -28,6 +38,15 @@ public class inputPrompt {
         return input;
     }
 
+    /**
+     * Takes a set of m integers where minLength < m < maxLength. 
+     * For each integer i in m, min < i < max
+     * @param minLength
+     * @param maxLength
+     * @param min
+     * @param max
+     * @return
+     */
     public int[] multipleIntegerInput(int minLength, int maxLength, int min, int max) {
         Scanner scan = new Scanner(System.in);
         int[] input = new int[maxLength];

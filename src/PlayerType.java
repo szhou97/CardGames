@@ -1,3 +1,4 @@
+
 public class PlayerType {
     private int type;
     public PlayerType(int type) {

@@ -1,7 +1,11 @@
+/**
+ * The card class represents a card object. Information such as card's type
+ * card's suit, and face up/down are stored in the class.
+ */
 public class Card {
-    private CardType type;
-    private CardSuit suit;
-    private boolean faceUp;
+    private CardType type;      // Card's type
+    private CardSuit suit;      // Card's suit
+    private boolean faceUp;     // Card's face up/down
     public Card(CardType type, CardSuit suit, boolean faceUp) {
         this.type = type;
         this.suit = suit;
@@ -23,7 +27,10 @@ public class Card {
     public void flipCard(boolean up) {
         this.faceUp = up;
     }
-    
+
+    /**
+     * Prints out the card in given format
+     */
     public void printCard() {
         String out = "";
         if (this.faceUp) {
