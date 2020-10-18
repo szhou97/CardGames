@@ -20,7 +20,8 @@ public class PlayerMoves {
     }
 
     /**
-     * Let's user select moves
+     * Let's user select moves. Split selection only available when the user
+     * has two cards of the same value
      */
     public int prompt(boolean d) {
         int min = 1, max = 1;
@@ -53,7 +54,7 @@ public class PlayerMoves {
                         boolean d = player.checkDouble();
                         selection = this.prompt(d);
                         if (selection == 3 || selection == 4) {
-                            if (player.getCurrentBet() * 2 > player.getBalance()) {
+                            if (hand.getBet() > player.getAvailableBalance()) {
                                 String str = "";
                                 if (selection == 3) {
                                     str = "Double Up";
@@ -122,7 +123,7 @@ public class PlayerMoves {
             case 4:
                 System.out.println("Player " + this.player.getPlayerIndex() 
                                     + " chooses to split");
-                this.player.split();
+                this.player.split(hand);
                 this.split();
                 break;
         }
@@ -149,7 +150,7 @@ public class PlayerMoves {
      */
     public void doubleUp(Hand hand) {
         int bet = player.getCurrentBet();
-        this.player.setBet(2*bet);
+        this.player.setBet(2*bet,hand);
         Card card = bt.getNextCard();
         card.flipCard(true);
         this.player.dealCards(card, hand);

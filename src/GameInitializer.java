@@ -16,7 +16,8 @@ public class GameInitializer {
     public void start() {
         System.out.println("Welcome to BlackJack\n"
                         + "Please enter the number of players,"
-                        + " excluding the dealer.");
+                        + " excluding the dealer.\n"
+                        + "1-5 players are allowed");
         this.run(in.singleIntegerInput(1, 5));
     }
     /**

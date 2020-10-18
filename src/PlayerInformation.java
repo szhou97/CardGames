@@ -20,7 +20,7 @@ public class PlayerInformation {
                         + "seperated by ',' \n"
                         + "Unselected dealer/player(s) will be controlled by "
                         + "the computer");
-        int[] hc = in.multipleIntegerInput(1, players.size(), 0, players.size());
+        int[] hc = in.multipleIntegerInput(1, players.size(), 0, players.size() - 1);
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             for (int j = 0; j < hc.length; j++) {
@@ -40,11 +40,21 @@ public class PlayerInformation {
         System.out.println("Please enter the total amount that " 
                                         + "you would like to enter today, "
                                         + "followed by the bet for the first "
-                                        + "round, seperated by ','");
-        int[] accInquiry = in.multipleIntegerInput(2,2,0,Integer.MAX_VALUE);
+                                        + "round, seperated by ','\n"
+                                        + "Minimum input is 10");
+        boolean valid = false;
+        int[] accInquiry = new int[2];
+        while(!valid) {
+            accInquiry = in.multipleIntegerInput(2,2,10,Integer.MAX_VALUE);
+            if (accInquiry[0] < accInquiry[1]) {
+                System.out.println("Invalid input. Bet needs to be smaller than"
+                                + " the balance. ");
+            } else {
+                valid = true;
+            }
+        }
         player.setBalance(accInquiry[0]);
-        player.setInitBalance(accInquiry[0]);
-        player.setBet(accInquiry[1]);
+        player.setBet(accInquiry[1], player.getHands().get(0));
     }
     /**
      * Set the bet for a specific player
@@ -53,7 +63,8 @@ public class PlayerInformation {
         System.out.println("Player " + player.getPlayerIndex()
                         + "Please enter the amount of bet for "
                         + "this round.");
-        player.setBet(in.singleIntegerInput(0,player.getBalance()));
+        player.setBet(in.singleIntegerInput(0,player.getBalance()), 
+                                            player.getHands().get(0));
     }
 
     /**
@@ -76,14 +87,17 @@ public class PlayerInformation {
                     if (player.getGamesPlayed() == 0) {
                         this.setBetAndBalance(player);
                     } else {
-                        if (player.getBalance() == 0) {
-                            System.out.println("Empty balance");
+                        if (player.getBalance() <= 0) {
+                            System.out.println("Empty of negative balance");
                             System.out.println("1: Continue with more money input\n"
                                 + "2: Quit");
                             int sel = in.singleIntegerInput(1, 3);
                             if (sel == 1) {
+                                System.out.println("You currently owe"
+                                    + player.getBalance()
+                                    + "\nPlease enter a balance at least"
+                                    + " of this amount");
                                 this.setBetAndBalance(player);
-                                player.setInitBalance(player.getBalance());
                             } else {
                                 System.exit(0);
                             }
@@ -105,17 +119,15 @@ public class PlayerInformation {
             } else {
                 if (player.getGamesPlayed() == 0) {
                     player.setBalance(100000000);
-                    player.setInitBalance(player.getBalance());
                     if (player.getPlayerType().equals("player")) {
-                        player.setBet(200);
+                        player.setBet(200,player.getHands().get(0));
                     }
                 } else {
                     if (player.getPlayerType().equals("player")) {
                         if (player.getBalance() <= 0) {
                             player.setBalance(100000000);
-                            player.setInitBalance(player.getBalance());
                         } else {
-                            player.setBet(10);
+                            player.setBet(10, player.getHands().get(0));
                         }
                     } else {
                         if (player.getBalance() <= 0) {

@@ -6,12 +6,26 @@ public class Hand {
     private ArrayList<Card> cards;
     private boolean active;
     private boolean bust;
+    private int bet;
     public Hand() {
         this.cards = new ArrayList<Card>();
         this.active = true;
         this.bust = false;
+        this.bet = 0;
     }
 
+    public void setBet(int bet) {
+        this.bet = bet;
+    }
+
+    public int getBet() {
+        return this.bet;
+    }
+    
+    public ArrayList<Card> getCards() {
+        return this.cards;
+    }
+    
     public void setBust() {
         this.bust = true;
     }
@@ -19,6 +33,7 @@ public class Hand {
     public boolean bust() {
         return this.bust;
     }
+    
     public boolean getStatus() {
         return this.active;
     }
@@ -31,18 +46,16 @@ public class Hand {
         this.cards.add(card);
     }
 
+    public void removeLastCard() {
+        this.cards.remove(this.cards.size() - 1);
+    }
+    
     public void flipLastCard() {
         this.cards.get(this.cards.size() - 1).flipCard(true);
     }
     
-    public Card getLastCard() {
-        int index = this.cards.size() - 1;
-        return this.cards.remove(index);
-    }
-    
     public void printCards() {
         this.cards.forEach((n) -> n.printCard());
-        System.out.println("Total value :" + this.getTotalValue());
     }
 
     public boolean checkDouble() {

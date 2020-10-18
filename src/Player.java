@@ -34,14 +34,9 @@ public class Player {
         return active;
     }
 
-    public void setInitBalance(int b) {
-        this.account.setInitBalance(b);
-    }
-
     public int getTotal() {
         return this.account.getTotal();
     }
-
 
     public boolean humanControl() {
         return this.human;
@@ -71,8 +66,9 @@ public class Player {
         this.gamePlayed++;
     }
 
-    public void setBet(int bet) {
-        this.account.setBet(bet);
+    public void setBet(int bet, Hand hand) {
+        hand.setBet(bet);
+        this.account.setBet(this.hands);
     }
 
     public int getCurrentBet() {
@@ -85,6 +81,10 @@ public class Player {
 
     public int getBalance() {
         return this.account.getBalance();
+    }
+
+    public int getAvailableBalance() {
+        return this.account.getBalance() - this.account.getBet();
     }
 
     public void winOrLose(int num) {
@@ -105,10 +105,14 @@ public class Player {
         hand.addCard(card);
     }
     
-    public void split() {
-        Hand hand = new Hand();
-        hand.addCard(this.hands.get(0).getLastCard());
-        hands.add(hand);
+    public void split(Hand hand) {
+        Hand newHand = new Hand();
+        hand.removeLastCard();
+        for (Card card : hand.getCards()) {
+            newHand.addCard(card);
+        }
+        newHand.setBet(hand.getBet());
+        hands.add(newHand);
     }
    
     public ArrayList<Hand> getHands() {

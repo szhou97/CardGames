@@ -125,10 +125,10 @@ public class BlackJack {
                     dm.hit();
                 printer.printTable(players);
             }
-            // Check for winners use the judge and distributor and distribute
-            // funds if necessary
-            jd.checkWinner(currPlayers);
         }
+        // Check for winners use the judge and distributor and distribute
+        // funds if necessary
+        jd.checkWinner(currPlayers);
         printer.printRecord(players);
     }
 }

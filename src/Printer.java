@@ -9,8 +9,9 @@ public class Printer {
     }
 
     public void printTable(ArrayList<Player> players) {
-        System.out.println("PRINTING CURRENT TABLE"
-        + "***********************");
+        System.out.println("***********************"
+            + "PRINTING CURRENT TABLE"
+            + "***********************");
         System.out.println("");
         for (int i = 0; i < players.size(); i++) {
             Player currP = players.get(i);
@@ -21,8 +22,9 @@ public class Printer {
             currP.printCards();
             System.out.println("");
         }
-        System.out.println("FINISHED CURRENT TABLE"
-        + "***********************");
+        System.out.println("***********************"
+            + "FINISHED CURRENT TABLE"
+            + "***********************");
     }
 
     public void printRecord(ArrayList<Player> players) {

@@ -26,7 +26,6 @@ public class Players {
 
     public void resetPlayers() {
         for(Player player : this.players) {
-            player.setBet(0);
             player.clearHands();
         }
     }

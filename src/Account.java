@@ -1,13 +1,13 @@
+import java.util.ArrayList;
+
 /**
- * The Account class stores participants information such as balance, bet,
- * money gain/loss, 
+ * The Account class stores participants information such as balance, bet, money
+ * gain/loss,
  */
 public class Account {
     private int balance;        // The current balance
     private int bet;            // The current bet
-    private int initBalance;    // The initial balance
     private int total;          // The total gain/loss
-
     /**
      * Initializing the account object, 
      */
@@ -23,13 +23,6 @@ public class Account {
 
     public void modifyTotal(int num) {
         this.total += num;
-    }
-
-    /**
-     * Set the initial balance
-     */
-    public void setInitBalance(int b) {
-        this.initBalance = b;
     }
     
     /**
@@ -55,8 +48,11 @@ public class Account {
     /**
      * Set the current bet
      */
-    public void setBet(int bet) {
-        this.bet = bet;
+    public void setBet(ArrayList<Hand> hands) {
+        this.bet = 0;
+        for (Hand hand : hands) {
+            this.bet += hand.getBet();
+        }
     }
 
     /**

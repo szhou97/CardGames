@@ -39,10 +39,18 @@ public class JudgeAndDistributor {
     public void checkWinner(ArrayList<Player> players) {
         Hand dealerHand = dealer.getHands().get(0);
         int dealerValue = dealerHand.getTotalValue();
-        System.out.println("Dealer's card sum is  " + dealerValue);
         if (dealerValue > 21) {
             for (Player player : players) {
-                this.distributor(player, true);
+                for (Hand hand : player.getHands()) {
+                    if (!hand.bust()) {
+                        this.distributor(player, true);
+                    } else {
+                        // Player busts before dealer, player loses and out
+                        // for the round, and will not get compensation for
+                        // dealer busts
+                        this.distributor(player, false);
+                    }
+                }
             }
         } else {
             for (Player player : players) {
