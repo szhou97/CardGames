@@ -52,30 +52,4 @@ public class DealerMoves {
     /**
      * Deal a round of cards for the current players
      */
-    public void dealCards() {
-        for (int i = 0; i < this.currPlayers.size(); i++) {
-            Player player = this.currPlayers.get(i);
-            for (Hand hand : player.getHands()) {
-                Card card = bt.getNextCard();
-                card.flipCard(true);
-                player.dealCards(card, hand);
-            }
-            
-        }
-        Card card = bt.getNextCard();
-        if (this.count != 1) {
-            card.flipCard(true);
-        }
-        dealer.dealCards(card, hand);
-        this.count++;
-    }
-
-    /**
-     * Dealer hits and obtains a new card
-     */
-    public void hit() {
-        Card card = bt.getNextCard();
-        card.flipCard(true);
-        dealer.dealCards(card, hand);
-    }
 }

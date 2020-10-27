@@ -101,10 +101,6 @@ public class Player {
         }
     }
     
-    public void dealCards(Card card, Hand hand) {
-        hand.addCard(card);
-    }
-    
     public void split(Hand hand) {
         Hand newHand = new Hand();
         hand.removeLastCard();

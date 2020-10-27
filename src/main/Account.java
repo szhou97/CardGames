@@ -14,6 +14,7 @@ public class Account {
     public Account() {
         this.total = 0;
     }
+    
     /**
      * @return the total value
      */
@@ -24,12 +25,7 @@ public class Account {
     public void modifyTotal(int num) {
         this.total += num;
     }
-    
-    /**
-     * Calculate the gain/loss for a current round
-     * @return the money difference between initial balance and current balance
-     */
-    
+
     /**
      * Set the current balance
      * @param balance

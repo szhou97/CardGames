@@ -4,11 +4,7 @@ import java.util.ArrayList;
  * according to given format
  */
 public class Printer {
-    public Printer() {
-
-    }
-
-    public void printTable(ArrayList<Player> players) {
+    public static void printTable(ArrayList<Player> players) {
         System.out.println("***********************"
             + "PRINTING CURRENT TABLE"
             + "***********************");
@@ -27,7 +23,7 @@ public class Printer {
             + "***********************");
     }
 
-    public void printRecord(ArrayList<Player> players) {
+    public static void printRecord(ArrayList<Player> players) {
         final Object [][] table = new String[players.size() + 1][];
         table[0] = new String[] {"Player", "Role", "Games",
                                 "Bet", "Balance", "Total Win/Loss"};

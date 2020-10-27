@@ -10,6 +10,7 @@ public class BlackJack {
     private Player dealer;
     private Printer printer;
     private PlayerInformation playerInfo;
+    private Moves moves;
 
     public BlackJack(int numPlayers) {
         this.currPlayers = new ArrayList<Player>();
@@ -17,6 +18,7 @@ public class BlackJack {
         this.blackJackTable = new BlackJackTable(numPlayers);
         this.printer = new Printer();
         this.playerInfo = new PlayerInformation(this.blackJackTable.getPlayers());
+        this.moves = new Moves(this.blackJackTable);
     }
     /**
      * The first iteration of the game, where player gets to choose whether
@@ -46,9 +48,6 @@ public class BlackJack {
         this.playerInfo.participantsInformation();
         this.blackJackTable.printRecords();
         this.blackJackTable.incrementGamesPlayed();
-
-        JudgeAndDistributor jd = new JudgeAndDistributor(dealer);
-
         // Start off by dealer move
         DealerMoves dm = new DealerMoves(dealer, this.currPlayers, blackJackTable);
         int count = 0;
@@ -69,7 +68,7 @@ public class BlackJack {
 
         // Check for bust players
         for (Player player : currPlayers) {
-            jd.bust(player);
+            BlackJackJudge.bust(player);
         }
 
         boolean end = false;
@@ -88,7 +87,7 @@ public class BlackJack {
                     }
                     PlayerMoves pm = new PlayerMoves(player, this.blackJackTable);
                     pm.makeMove(player.humanControl());
-                    jd.bust(player);
+                    BlackJackJudge.bust(player);
                 }
             }
             if (end) {
@@ -128,7 +127,7 @@ public class BlackJack {
         }
         // Check for winners use the judge and distributor and distribute
         // funds if necessary
-        jd.checkWinner(currPlayers);
+        BlackJackJudge.checkWinner(dealer,currPlayers);
         printer.printRecord(players);
     }
 }

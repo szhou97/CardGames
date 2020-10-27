@@ -5,12 +5,10 @@ import java.util.ArrayList;
  */
 public abstract class GameTable {
     
-    private Printer printer;
     private Players players;
     private int numPlayers;
     public GameTable(int numPlayers) {
         this.numPlayers = numPlayers;
-        this.printer = new Printer();
         this.players = new Players(new ArrayList<Player>());
         Player dealer = new Player(new PlayerType(0), 0);
         this.players.add(dealer);
@@ -38,10 +36,10 @@ public abstract class GameTable {
     }
 
     public void printRecords() {
-        this.printer.printRecord(this.players.getPlayers());
+        Printer.printRecord(this.players.getPlayers());
     }
 
     public void printTable() {
-        this.printer.printTable(this.players.getPlayers());
+        Printer.printTable(this.players.getPlayers());
     }
 }

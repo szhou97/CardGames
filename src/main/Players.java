@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
- * The Players object contains a list of Player objects. 
+ * The Players object contains a list of Player objects.
  */
-public class Players {
+public class Players implements Iterable<Player> {
     private ArrayList<Player> players;
 
     public Players(ArrayList<Player> players) {
@@ -25,8 +27,14 @@ public class Players {
     }
 
     public void resetPlayers() {
-        for(Player player : this.players) {
+        for (Player player : this.players) {
             player.clearHands();
         }
+    }
+
+    @Override
+    public Iterator<Player> iterator() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

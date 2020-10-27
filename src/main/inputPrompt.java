@@ -3,13 +3,10 @@ import java.util.Scanner;
  * A class dedicated to take input from the user
  */
 public class inputPrompt {
-    public inputPrompt() {
-
-    }
     /**
      * Takes one ENTER key
      */
-    public void pressEnterPrompt() {
+    public static void pressEnterPrompt() {
         Scanner scan = new Scanner(System.in);
         scan.nextLine();
     }
@@ -20,7 +17,7 @@ public class inputPrompt {
      * @param max
      * @return
      */
-    public int singleIntegerInput(int min, int max) {
+    public static int singleIntegerInput(int min, int max) {
         Scanner scan = new Scanner(System.in);
         int input = 0;
         while(true) {
@@ -47,7 +44,7 @@ public class inputPrompt {
      * @param max
      * @return
      */
-    public int[] multipleIntegerInput(int minLength, int maxLength, int min, int max) {
+    public static int[] multipleIntegerInput(int minLength, int maxLength, int min, int max) {
         Scanner scan = new Scanner(System.in);
         int[] input = new int[maxLength];
         for (int i = 0; i < input.length; i++) {
