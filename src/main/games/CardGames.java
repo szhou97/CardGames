@@ -1,3 +1,7 @@
+package games;
+
+import structure.cards.Card;
+
 /**
  * An interface providing methods that need to be implemented by all card games
  */

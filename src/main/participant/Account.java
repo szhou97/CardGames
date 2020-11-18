@@ -1,3 +1,4 @@
+package participant;
 import java.util.ArrayList;
 
 /**
@@ -39,22 +40,5 @@ public class Account {
      */
     public int getBalance() {
         return this.balance;
-    }
-
-    /**
-     * Set the current bet
-     */
-    public void setBet(ArrayList<Hand> hands) {
-        this.bet = 0;
-        for (Hand hand : hands) {
-            this.bet += hand.getBet();
-        }
-    }
-
-    /**
-     * @return the current bet
-     */
-    public int getBet() {
-        return this.bet;
     }
 }

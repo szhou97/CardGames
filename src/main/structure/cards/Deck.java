@@ -1,3 +1,5 @@
+package structure.cards;
+
 import java.util.ArrayList;
 import java.util.Random;
 /**

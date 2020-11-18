@@ -1,21 +1,28 @@
+package participant;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * The Players object contains a list of Player objects.
  */
-public class Players implements Iterable<Player> {
+public class Players {
     private ArrayList<Player> players;
+    private Dealer dealer;
 
-    public Players(ArrayList<Player> players) {
+    public Players() {
         this.players = new ArrayList<Player>();
-        for (int i = 0; i < players.size(); i++) {
-            this.players.add(players.get(i));
-        }
     }
 
     public void add(Player player) {
         this.players.add(player);
+    }
+
+    public void addDealer(Dealer dealer) {
+        this.dealer = dealer;
+    }
+
+    public Dealer getDealer() {
+        return this.dealer;
     }
 
     public void remove(Player player) {
@@ -28,13 +35,8 @@ public class Players implements Iterable<Player> {
 
     public void resetPlayers() {
         for (Player player : this.players) {
-            player.clearHands();
+            player.reset();
         }
     }
 
-    @Override
-    public Iterator<Player> iterator() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 }

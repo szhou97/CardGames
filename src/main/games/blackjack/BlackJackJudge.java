@@ -1,4 +1,8 @@
+package games.blackjack;
+
 import java.util.ArrayList;
+
+import participant.Player;
 /**
  * The judge and Distributor class checks the winner of a game and consequently
  * distributes money to the winner and takes money from the losers

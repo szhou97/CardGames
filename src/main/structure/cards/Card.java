@@ -1,3 +1,5 @@
+package structure.cards;
+
 /**
  * The card class represents a card object. Information such as card's type
  * card's suit, and face up/down are stored in the class.

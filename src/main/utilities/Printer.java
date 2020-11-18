@@ -1,3 +1,6 @@
+package utilities;
+
+import participant.Player;
 import java.util.ArrayList;
 /**
  * The printer class prints the current table or record 
@@ -5,7 +8,8 @@ import java.util.ArrayList;
  */
 public class Printer {
     public static void printTable(ArrayList<Player> players) {
-        System.out.println("***********************"
+        System.out.println(
+            "***********************"
             + "PRINTING CURRENT TABLE"
             + "***********************");
         System.out.println("");
@@ -14,11 +18,12 @@ public class Printer {
             System.out.println("Player " 
                             + currP.getPlayerIndex()
                             + " as "
-                            + currP.getPlayerType());
-            currP.printCards();
+                            + "player");
+            currP.printPlayer();
             System.out.println("");
         }
-        System.out.println("***********************"
+        System.out.println(
+            "***********************"
             + "FINISHED CURRENT TABLE"
             + "***********************");
     }
@@ -38,7 +43,7 @@ public class Printer {
             }
             table[i + 1] = new String[] {
                 str, 
-                player.getPlayerType(),
+                "player",
                 Integer.toString(player.getGamesPlayed()),
                 Integer.toString(player.getCurrentBet()),
                 Integer.toString(player.getBalance()),

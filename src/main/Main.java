@@ -1,3 +1,5 @@
+import utilities.GameInitializer;
+
 /**
  * The main class of the program
  */

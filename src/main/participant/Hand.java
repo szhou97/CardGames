@@ -1,4 +1,7 @@
+package participant;
+
 import java.util.ArrayList;
+import structure.cards.Card;
 /**
  * Represent a hand of a player. A hand object is dedicated to maintain cards
  */
@@ -7,11 +10,11 @@ public class Hand {
     private boolean active;
     private boolean bust;
     private int bet;
-    public Hand() {
+    public Hand(int bet) {
         this.cards = new ArrayList<Card>();
         this.active = true;
         this.bust = false;
-        this.bet = 0;
+        this.bet = bet;
     }
 
     public void setBet(int bet) {

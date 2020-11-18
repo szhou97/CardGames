@@ -1,13 +1,26 @@
+package games;
+
+import participant.Participant;
+import participant.Players;
+import structure.GameTable;
+import structure.cards.Card;
+import structure.cards.Deck;
+
 /**
  * The BlackJackTable class inherits both GameTable and CardGames, implementing
  * respective methods.
  */
-public class BlackJackTable extends GameTable implements CardGames{
+public class CardGameTable extends GameTable implements CardGames{
 
     private Deck deck;
-    public BlackJackTable(int numPlayers) {
-        super(numPlayers);
+    public CardGameTable(Players players) {
+        super(players);
         this.deck = new Deck();
+    }
+
+    public void distribute(Participant player, Participant dealer, int amount) {
+        player.updateAccount(amount);
+        dealer.updateAccount(-amount);
     }
 
     /**

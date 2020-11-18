@@ -1,3 +1,5 @@
+package structure.cards;
+
 /**
  * A class representing the card type
  */

@@ -1,7 +1,13 @@
+package games;
+
+import participant.Hand;
+import participant.Player;
+import structure.cards.Card;
+
 public class Moves {
-    private BlackJackTable bt;
-    public Moves(BlackJackTable bt) {
-        this.bt = bt;
+    private CardGameTable table;
+    public Moves(CardGameTable table) {
+        this.table = table;
     }
     public void playerMove(Player player, Hand hand, int selection) {
         switch(selection) {
@@ -32,7 +38,7 @@ public class Moves {
      * Player takes another card
      */
     public void hit( Hand hand) {
-        Card card = bt.getNextCard();
+        Card card = table.getNextCard();
         card.flipCard(true);
         hand.addCard(card);
     }
@@ -49,7 +55,7 @@ public class Moves {
      */
     public void doubleUp(Hand hand) {
         hand.setBet(hand.getBet() * 2);
-        Card card = bt.getNextCard();
+        Card card = table.getNextCard();
         card.flipCard(true);
         hand.addCard(card);
         hand.setStatus(false);
@@ -59,7 +65,7 @@ public class Moves {
      * Player splits into two hands. The two hands will move independently
      */
     public void split(Player player, Hand hand) {
-        player.split(hand);
+        //player.split(hand);
     }
 
     /**
@@ -68,11 +74,11 @@ public class Moves {
      * @param faceUp
      */
     public void dealCards(Player player, boolean faceUp) {
-        for (Hand hand : player.getHands()) {
-            Card card = bt.getNextCard();
-            card.flipCard(faceUp);
-            hand.addCard(card);
-        }
+        // for (Hand hand : player.getHands()) {
+        //     Card card = bt.getNextCard();
+        //     card.flipCard(faceUp);
+        //     hand.addCard(card);
+        // }
     }
     
 }
