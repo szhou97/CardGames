@@ -58,41 +58,6 @@ public abstract class Hand {
     /**
      * Checkers
      */
-
-    public boolean isDouble() {
-        if (this.cards.size() >= 2) {
-            Card card1 = this.cards.get(this.cards.size() - 1);
-            Card card2 = this.cards.get(this.cards.size() - 2);
-            return card1.getType().equals(card2.getType());
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isBust() {
-        return this.getTotalValue() > 21;
-    }
-
-    public boolean isNaturalBlackJack() {
-        boolean a = false;
-        boolean ten = false;
-        boolean naturalBlack = false;
-        if (this.cards.size() == 2) {
-            for (Card card : this.cards) {
-                if (card.getType().equals("A")) {
-                    a = true;
-                }
-                if (card.getValue() == 10) {
-                    ten = true;
-                }
-            }
-        }
-        if (a && !ten) {
-            naturalBlack = true;
-        }
-        return naturalBlack && this.getTotalValue() == 21;
-    }
-
     public String toString() {
         String str = "";
         for (Card card : cards) {

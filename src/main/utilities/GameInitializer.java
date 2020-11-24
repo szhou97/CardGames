@@ -28,10 +28,8 @@ public class GameInitializer {
         while (!end) {
             System.out.println("Please choose a game to play:\n" + "\t1: " + BlackJackGame.name + "\t" + "\t2: "
                     + TriantaEnaGame.name + "\t");
-
             int selection = Input.integerInput(1, 2);
             System.out.println("Please select the number of players, " + "excluding the dealer\n" + "Maximum 5 players");
-
             int numPlayers = Input.integerInput(1, 7);
         }
     }
