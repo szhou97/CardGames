@@ -1,6 +1,6 @@
-package structure;
+package structure.table;
 
-import participant.*;
+import structure.participant.*;
 import utilities.Printer;
 /**
  * An abstract class that can be used for any game with a dealer and multiple
@@ -24,11 +24,11 @@ public abstract class GameTable {
         return this.players;
     }
 
-    public void printRecords() {
-        Printer.printRecord(this.players.getPlayers());
-    }
+    // public void printRecords() {
+    //     Printer.printRecord(this.players.getPlayers());
+    // }
 
-    public void printTable() {
-        Printer.printTable(this.players.getPlayers());
-    }
+    // public void printTable() {
+    //     Printer.printTable(this.players.getPlayers());
+    // }
 }

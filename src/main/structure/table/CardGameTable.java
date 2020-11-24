@@ -1,13 +1,13 @@
-package games;
+package structure.table;
 
-import participant.Participant;
-import participant.Players;
-import structure.GameTable;
-import structure.cards.Card;
-import structure.cards.Deck;
+import java.util.ArrayList;
+
+import games.CardGames;
+import structure.cards.*;
+import structure.participant.*;
 
 /**
- * The BlackJackTable class inherits both GameTable and CardGames, implementing
+ * The CardGameTable class inherits both GameTable and CardGames, implementing
  * respective methods.
  */
 public class CardGameTable extends GameTable implements CardGames{
@@ -19,8 +19,7 @@ public class CardGameTable extends GameTable implements CardGames{
     }
 
     public void distribute(Participant player, Participant dealer, int amount) {
-        player.updateAccount(amount);
-        dealer.updateAccount(-amount);
+        // TODO
     }
 
     /**
@@ -44,5 +43,10 @@ public class CardGameTable extends GameTable implements CardGames{
     @Override
     public int deckSize() {
         return this.deck.deckSize();
+    }
+
+    @Override
+    public void dealCard(Hand hand, Card card) {
+        hand.addCard(card);
     }
 }

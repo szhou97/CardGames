@@ -1,75 +1,30 @@
-package participant;
+package structure.participant;
 
 import java.util.ArrayList;
 import structure.cards.Card;
 /**
  * Represent a hand of a player. A hand object is dedicated to maintain cards
  */
-public class Hand {
+public abstract class Hand {
     private ArrayList<Card> cards;
     private boolean active;
-    private boolean bust;
-    private int bet;
-    public Hand(int bet) {
+    public Hand() {
         this.cards = new ArrayList<Card>();
         this.active = true;
-        this.bust = false;
-        this.bet = bet;
     }
 
-    public void setBet(int bet) {
-        this.bet = bet;
+    public void setStatus(boolean active) {
+        this.active = active;
     }
 
-    public int getBet() {
-        return this.bet;
+    public boolean getStatus() {
+        return this.active;
     }
     
     public ArrayList<Card> getCards() {
         return this.cards;
     }
     
-    public void setBust() {
-        this.bust = true;
-    }
-
-    public boolean bust() {
-        return this.bust;
-    }
-    
-    public boolean getStatus() {
-        return this.active;
-    }
-    
-    public void setStatus(boolean active) {
-        this.active = active;
-    }
-
-    public void addCard(Card card) {
-        this.cards.add(card);
-    }
-
-    public void removeLastCard() {
-        this.cards.remove(this.cards.size() - 1);
-    }
-    
-    public void flipLastCard() {
-        this.cards.get(this.cards.size() - 1).flipCard(true);
-    }
-    
-    public void printCards() {
-        this.cards.forEach((n) -> n.printCard());
-    }
-
-    public boolean checkDouble() {
-        if (this.cards.size() >= 2) {
-            Card card1 = this.cards.get(this.cards.size() - 1);
-            Card card2 = this.cards.get(this.cards.size() - 2);
-            return card1.getType().equals(card2.getType());
-        } else {
-            return false;
-        }
-    }
 
     public int getTotalValue() {
         int value = 0;
@@ -85,8 +40,37 @@ public class Hand {
             if (value + 10 <= 21) 
                 value += 10;
         }
-
         return value;
+    }
+
+    /**
+     * Hand modifiers
+     */
+
+    public void addCard(Card card) {
+        this.cards.add(card);
+    }
+
+    public void removeCard(Card card) {
+        this.cards.remove(card);
+    }
+
+    /**
+     * Checkers
+     */
+
+    public boolean isDouble() {
+        if (this.cards.size() >= 2) {
+            Card card1 = this.cards.get(this.cards.size() - 1);
+            Card card2 = this.cards.get(this.cards.size() - 2);
+            return card1.getType().equals(card2.getType());
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isBust() {
+        return this.getTotalValue() > 21;
     }
 
     public boolean isNaturalBlackJack() {
@@ -109,4 +93,12 @@ public class Hand {
         return naturalBlack && this.getTotalValue() == 21;
     }
 
+    public String toString() {
+        String str = "";
+        for (Card card : cards) {
+            str += card.toString();
+            str += "\n";
+        }
+        return str;
+    }
 }

@@ -33,13 +33,13 @@ public class Card {
     /**
      * Prints out the card in given format
      */
-    public void printCard() {
+    public String toString() {
         String out = "";
         if (this.faceUp) {
             out = this.type.getType() + " of " + this.suit.getSuit();
         } else {
-            out = "***";
+            out = "***\n";
         }
-        System.out.println(out);
+        return out;
     }
 }

@@ -1,4 +1,4 @@
-package participant;
+package structure.participant;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ public class Players {
         this.players = new ArrayList<Player>();
     }
 
-    public void add(Player player) {
+    public void addPlayer(Player player) {
         this.players.add(player);
     }
 
@@ -34,9 +34,7 @@ public class Players {
     }
 
     public void resetPlayers() {
-        for (Player player : this.players) {
-            player.reset();
-        }
+        // TODO
     }
 
 }

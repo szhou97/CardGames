@@ -17,10 +17,6 @@ public class Deck {
         }
     }
 
-    public void printDeck() {
-        this.cards.forEach((n) -> n.printCard());
-    }
-
     public int deckSize() {
         return this.cards.size();
     }
@@ -32,6 +28,14 @@ public class Deck {
     public Card getNextCard() {
         Random r = new Random();
         return this.cards.remove(r.nextInt(this.cards.size()));
+    }
+
+    public String toString() {
+        String out = "";
+        for (Card card : cards) {
+            out += card.toString();
+        }
+        return out;
     }
 
     
