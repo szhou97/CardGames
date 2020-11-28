@@ -1,6 +1,7 @@
 package structure.participant;
 
 import java.util.ArrayList;
+
 import structure.cards.Card;
 /**
  * Represent a hand of a player. A hand object is dedicated to maintain cards
@@ -35,7 +36,6 @@ public abstract class Hand {
             if (c.getType().equals("A")) 
                 a = true;
         }
-
         if (a) {
             if (value + 10 <= 21) 
                 value += 10;
@@ -44,8 +44,8 @@ public abstract class Hand {
     }
 
     /**
-     * Hand modifiers
-     */
+    * Hand modifiers
+    */
 
     public void addCard(Card card) {
         this.cards.add(card);
@@ -55,9 +55,10 @@ public abstract class Hand {
         this.cards.remove(card);
     }
 
-    /**
-     * Checkers
-     */
+    public void clearHand() {
+        this.cards = new ArrayList<Card>();
+    }
+
     public String toString() {
         String str = "";
         for (Card card : cards) {

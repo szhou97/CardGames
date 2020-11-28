@@ -1,5 +1,7 @@
 package structure.participant;
 
+import structure.cards.Card;
+
 public class PlayerHand extends Hand implements CardGamePlayer {
     
     private int bet;
@@ -17,5 +19,14 @@ public class PlayerHand extends Hand implements CardGamePlayer {
     public int getBet() {
         return bet;
     }
-    
+
+    @Override
+    public String toString() {
+        String str = "Bet: " + getBet();
+        for (Card card : getCards()) {
+            str += card.toString();
+            str += "\n";
+        }
+        return str;
+    }
 }

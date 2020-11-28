@@ -37,4 +37,17 @@ public class Players {
         // TODO
     }
 
+    public String toString() {
+        String str = "\n";
+        str += "PLAYERS:\n";
+        str += "name\t\tmoney won\n";
+        for (Player player : getPlayers()) {
+            str += player;
+        }
+        str += "\nDEALER\n";
+        str += "name\t\tmoney won\n";
+        str += dealer;
+        return str;
+    }
+
 }

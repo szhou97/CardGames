@@ -1,33 +1,31 @@
 package structure.participant;
 
 public abstract class Participant {
+    private final String name;
     private int gamePlayed;
     private boolean human;
-    private int index;
-    private int balance;
-    public Participant(int index, int human, int balance) {
+    private int moneyWon;
+    public Participant(String name, boolean human, int moneyWon) {
+        this.name = name;
         this.gamePlayed = 0;
-        this.balance = balance;
-        if (human == 0)
-            this.human = true;
-        else 
-            this.human = false;
+        this.human = human;
+        this.moneyWon = moneyWon;
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
+    public void setMoneyWon(int moneyWon) {
+        this.moneyWon = moneyWon;
     }
 
-    public int getPlayerIndex() {
-        return this.index;
+    public String getName() {
+        return this.name;
     }
 
     public int getGamesPlayed() {
         return this.gamePlayed;
     }
 
-    public int getBalance() {
-        return this.balance;
+    public int getMoneyWon() {
+        return this.moneyWon;
     }
    
     public void incrementGamePlayed() {

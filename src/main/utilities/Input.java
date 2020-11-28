@@ -9,23 +9,24 @@ public class Input {
      * Takes one ENTER key
      */
     public static void pressEnter() {
+        System.out.println("Press enter to continue");
         Scanner scan = new Scanner(System.in);
         scan.nextLine();
     }
 
-    public static int yesOrNo() {
+    public static boolean yesOrNo() {
         System.out.println("Please enter YES/no");
         Scanner scan = new Scanner(System.in);
         boolean valid = false;
-        int answer = -1;
+        boolean answer = false;
         while (!valid) {
             String input = scan.nextLine();
             if (input.toLowerCase().trim().equals("yes")) {
                 valid = true;
-                answer = 0;
+                answer = true;
             } else if (input.toLowerCase().trim().equals("no")) {
                 valid = true;
-                answer = 1;
+                answer = false;
             } else {
                 System.out.println("Unrecognized input, please enter again.");
             }
@@ -56,5 +57,10 @@ public class Input {
             }
         }
         return input;
+    }
+
+    public static String stringInput() {
+        Scanner scan = new Scanner(System.in);
+        return scan.nextLine();
     }
 }

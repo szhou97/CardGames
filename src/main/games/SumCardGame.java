@@ -4,28 +4,34 @@ import structure.cards.Card;
 import structure.participant.*;
 import structure.table.CardGameTable;
 
-public abstract class SumCardGame extends CardGame {
+public abstract class SumCardGame extends CardGame implements CardGameMoves {
     public SumCardGame(CardGameTable table) {
         super(table);
     }
 
-    /**
-     * Player takes another card
-     */
+    @Override
     public void hit(Hand hand) {
         Card card = getTable().getNextCard();
         card.flipCard(true);
         hand.addCard(card);
     }
 
-    /**
-     * Player stop taking cards
-     */
+    @Override
     public void stand(Hand hand) {
         hand.setStatus(false);
     }
 
     public boolean isBust(Hand hand, int maxValue) {
-        return hand.getTotalValue() > maxValue;
+        boolean result = false;
+        if (hand.getTotalValue() > maxValue) {
+            result = true;
+        }
+
+        return result;
+    }
+
+    public void distribute(Player player, Dealer dealer, int money) {
+        player.setMoneyWon(player.getMoneyWon() + money);
+        dealer.setMoneyWon(dealer.getMoneyWon() - money);
     }
 }

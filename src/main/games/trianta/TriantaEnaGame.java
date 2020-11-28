@@ -1,6 +1,7 @@
 package games.trianta;
 
 import games.CardGame;
+import structure.participant.Players;
 import structure.table.CardGameTable;
 import utilities.TextColors;
 
@@ -15,8 +16,14 @@ public class TriantaEnaGame extends CardGame {
     }
 
     @Override
-    public void checkWinner() {
+    public void checkWinner(Players players) {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    public boolean play() {
+        // TODO Auto-generated method stub
+        return false;
     }
 }

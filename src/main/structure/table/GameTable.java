@@ -1,7 +1,6 @@
 package structure.table;
 
 import structure.participant.*;
-import utilities.Printer;
 /**
  * An abstract class that can be used for any game with a dealer and multiple
  * players. Contains method to initialize, update and print player information

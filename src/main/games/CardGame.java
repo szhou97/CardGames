@@ -1,7 +1,6 @@
 package games;
 
-import structure.cards.Card;
-import structure.participant.*;
+import structure.participant.Players;
 import structure.table.CardGameTable;
 
 public abstract class CardGame {
@@ -10,7 +9,8 @@ public abstract class CardGame {
         this.table = table;
     }
 
-    public abstract void checkWinner();
+    public abstract boolean play();
+    public abstract void checkWinner(Players players);
 
     public CardGameTable getTable() {
         return table;
