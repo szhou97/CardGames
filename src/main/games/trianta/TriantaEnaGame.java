@@ -3,6 +3,7 @@ package games.trianta;
 import games.CardGame;
 import structure.participant.Players;
 import structure.table.CardGameTable;
+import utilities.Input;
 import utilities.TextColors;
 
 public class TriantaEnaGame extends CardGame {
@@ -23,7 +24,7 @@ public class TriantaEnaGame extends CardGame {
 
     @Override
     public boolean play() {
-        // TODO Auto-generated method stub
-        return false;
+        // Deal first round of cards and ask for bet input
+        return Input.yesOrNo();
     }
 }

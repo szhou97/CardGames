@@ -2,9 +2,12 @@ package games.trianta;
 
 import games.Play;
 import games.Replayable;
+import structure.participant.Dealer;
+import structure.participant.Player;
 import structure.participant.Players;
 import structure.table.CardGameTable;
 import utilities.Input;
+import utilities.PlayerInit;
 
 public class PlayTriantaEna extends Play implements Replayable {
     public PlayTriantaEna(int numPlayers) {
@@ -21,7 +24,10 @@ public class PlayTriantaEna extends Play implements Replayable {
         TriantaEnaGame game = new TriantaEnaGame(table);
         boolean play = true;
         while(play) {
-            game.play();
+            play = game.play();
+            if (play) {
+                refreshPlayers(players);
+            }
         }
         
     }
@@ -29,13 +35,44 @@ public class PlayTriantaEna extends Play implements Replayable {
     @Override
     public Players initPlayers() {
         Players players = new Players();
-        int balance = 0;
-        System.out.println("Please enter the balance for players");
-        balance = Input.integerInput(100, 10000);
+        System.out.println("Please enter the starting balance for players");
+        int balance = Input.integerInput(50, 10000);
         for (int i = 0; i < getNumPlayers(); i++) {
-            players.addPlayer(createPlayer(i + 1, balance));
+            boolean done = false;
+            while(!done) {
+                System.out.println("Creating player " + (i + 1));
+                String name = PlayerInit.setName();
+                System.out.println("Player details: ");
+                System.out.println("name: " + name + ", balance: " + balance);
+                System.out.println("Confirm?");
+                if (Input.yesOrNo()) {
+                    players.addPlayer(new Player(name, true, 0, balance, 0));
+                    done = true;
+                } 
+            }
         }
-        players.addDealer(createDealer(balance * 3));
+        boolean done = false;
+        while (!done) {
+            String name = "dealer";
+            boolean human = false;
+            if (PlayerInit.dealerInfo()) {
+                human = true;
+                name = PlayerInit.setName();
+                System.out.println("Dealer details: ");
+                System.out.println("name: " + name + ", balance: " + 3*balance);
+                System.out.println("Confirm?");
+                if (Input.yesOrNo()) {
+                    done = true;
+                }
+            } else {
+                done = true;
+            }
+            players.addDealer(new Dealer(name, human, 3*balance, 0));
+        }
         return players;
+    }
+
+    private void rotateDealer(Players players) {
+
     }
 }

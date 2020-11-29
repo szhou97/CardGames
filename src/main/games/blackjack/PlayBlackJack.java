@@ -1,7 +1,5 @@
 package games.blackjack;
 
-import java.util.ArrayList;
-
 import games.Play;
 import games.Replayable;
 import structure.participant.*;
@@ -35,9 +33,38 @@ public class PlayBlackJack extends Play implements Replayable {
     public Players initPlayers() {
         Players players = new Players();
         for (int i = 0; i < getNumPlayers(); i++) {
-            players.addPlayer(createPlayer(i + 1, 100000));
+            boolean done = false;
+            while(!done) {
+                System.out.println("Creating player " + (i + 1));
+                String name = PlayerInit.setName();
+                int bet = PlayerInit.setBet(100000);
+                System.out.println("Player details: ");
+                System.out.println("name: " + name + ", bet: " + bet);
+                System.out.println("Confirm?");
+                if (Input.yesOrNo()) {
+                    players.addPlayer(new Player(name, true, bet, 0, 0));
+                    done = true;
+                } 
+            }
         }
-        players.addDealer(createDealer(0));
+        boolean done = false;
+        while (!done) {
+            String name = "dealer";
+            boolean human = false;
+            if (PlayerInit.dealerInfo()) {
+                human = true;
+                name = PlayerInit.setName();
+                System.out.println("Dealer details: ");
+                System.out.println("name: " + name);
+                System.out.println("Confirm?");
+                if (Input.yesOrNo()) {
+                    done = true;
+                }
+            } else {
+                done = true;
+            }
+            players.addDealer(new Dealer(name, human, 0, 0));
+        }
         return players;
     }
 }
