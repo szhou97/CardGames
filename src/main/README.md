@@ -65,12 +65,13 @@ Workflow Classes:
         These classes work as the "driver" of the game classes. It takes player input specific of the game, starts the game, and modify participants as needed after each round of the game.
     
 Some notable things:
+
     1. Though unnecessary, I changed many structural components of the original BlackJack program to make it more "object-oriented". Many ideas came from working on other's program in the previous Legends of Valor assignment. 
 
     2. Black Jack game no longer tracks the balance of a player/dealer. It only tracks how much money a player has won/lost throughout the entire game. A player can rack up a giant debt if does not quit willingly.
 
     3. Trianta Ena tracks both balance and money win/loss throughout the game. At the end of each iteration of the game, players/dealer with zero/negative balance are removed. In the case of a dealer's removal, the player with the highest balance will be forced to become the dealer in order for the game to continue.
-    
+
     4. In Trianta Ena, after an iteration of the game, the players can rotate dealer as specified in the instruction.
 
 
