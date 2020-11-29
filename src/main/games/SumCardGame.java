@@ -36,82 +36,6 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
 
     public abstract void playerMove(Player player, PlayerHand hand);
 
-    @Override
-    public boolean playRound() {
-        boolean active = false;
-        for (Player player : getTable().getPlayers().getPlayers()) {
-            boolean update = false;
-            ArrayList<PlayerHand> hands = player.getHands();
-            for (int i = 0; i < hands.size(); i++) {
-                PlayerHand hand = hands.get(i);
-                if (hand.getStatus()) {
-                    update = true;
-                    active = true;
-                    playerMove(player, hand);
-                }
-            }
-            // Print out resulting hand and update status
-            if (update) {
-                updateHandsStatus(player);
-            }
-        }
-        return active;
-    }
-    /**
-     * A general game flow for games that aims to reach a certain sum such as 
-     * Trianta Ena and BlackJack
-     */
-    public boolean play() {
-        startRound();
-        boolean active = true;
-        while (active) {
-            active = playRound();
-            Input.pressEnter();
-        }
-
-        // Dealer move
-        dealerMove();
-
-        // Check winner of and end current round
-        checkWinner();
-        System.out.println(getTable().getPlayers());
-        Input.pressEnter();
-
-        System.out.println("Play another round?");
-        return Input.yesOrNo();
-    }
-
-    public void updateHandsStatus(Player player) {
-        for (PlayerHand hand : player.getHands()) {
-            if (hand.getStatus()) {
-                if (isBust(hand)) {
-                    System.out.println("Current hand is bust");
-                    hand.setStatus(false);
-                }
-                if (isWin(hand)) {
-                    System.out.println("You have hit " + name);
-                    hand.setStatus(false);
-                }
-            }
-            
-            System.out.println(player.getName() + ":");
-            System.out.println(hand);
-        }
-    }
-    
-    @Override
-    public void hit(Hand hand) {
-        Card card = getTable().getNextCard();
-        card.flipCard(true);
-        hand.addCard(card);
-    }
-
-    @Override
-    public void stand(Hand hand) {
-        hand.setStatus(false);
-    }
-
-    @Override
     public void dealerMove() {
         // Check if dealer moves are necessary
         Dealer dealer = getTable().getPlayers().getDealer();
@@ -143,6 +67,47 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
                 hit(dealer.getHand());
                 System.out.println(dealer.getHand());
             }
+        }
+    }
+    
+    @Override
+    public boolean playRound() {
+        boolean active = false;
+        for (Player player : getTable().getPlayers().getPlayers()) {
+            boolean update = false;
+            ArrayList<PlayerHand> hands = player.getHands();
+            for (int i = 0; i < hands.size(); i++) {
+                PlayerHand hand = hands.get(i);
+                if (hand.getStatus()) {
+                    update = true;
+                    active = true;
+                    playerMove(player, hand);
+                }
+            }
+            // Print out resulting hand and update status
+            if (update) {
+                updateHandsStatus(player);
+            }
+        }
+        return active;
+    }
+    
+    
+    public void updateHandsStatus(Player player) {
+        for (PlayerHand hand : player.getHands()) {
+            if (hand.getStatus()) {
+                if (isBust(hand)) {
+                    System.out.println("Current hand is bust");
+                    hand.setStatus(false);
+                }
+                if (isWin(hand)) {
+                    System.out.println("You have hit " + name);
+                    hand.setStatus(false);
+                }
+            }
+            
+            System.out.println(player.getName() + ":");
+            System.out.println(hand);
         }
     }
 
@@ -196,15 +161,54 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
         }
     }
 
+    /**
+     * A general game flow for games that aims to reach a certain sum such as 
+     * Trianta Ena and BlackJack
+     */
+    public boolean play() {
+        startRound();
+        boolean active = true;
+        while (active) {
+            active = playRound();
+            Input.pressEnter();
+        }
+
+        // Dealer move
+        dealerMove();
+
+        // Check winner of and end current round
+        checkWinner();
+        System.out.println(getTable().getPlayers());
+        Input.pressEnter();
+
+        System.out.println("Play another round?");
+        return Input.yesOrNo();
+    }
+
+    @Override
+    public void hit(Hand hand) {
+        Card card = getTable().getNextCard();
+        card.flipCard(true);
+        hand.addCard(card);
+    }
+
+    @Override
+    public void stand(Hand hand) {
+        hand.setStatus(false);
+    }
+
+    @Override
     public boolean isWin(Hand hand) {
         return hand.getTotalValue() == winCap;
     }
     
+    @Override
     public boolean isBust(Hand hand) {
         return hand.getTotalValue() > winCap;
     }
 
-    private boolean isNatural(Hand hand) {
+    @Override
+    public boolean isNatural(Hand hand) {
         boolean natural = false;
         if (isWin(hand)) {
             ArrayList<Card> cards = hand.getCards();
@@ -223,5 +227,7 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
     public void distribute(Player player, Dealer dealer, int money) {
         player.setMoneyWon(player.getMoneyWon() + money);
         dealer.setMoneyWon(dealer.getMoneyWon() - money);
+        player.setBalance(player.getBalance() + player.getMoneyWon());
+        dealer.setBalance(dealer.getBalance() + dealer.getMoneyWon());
     }
 }

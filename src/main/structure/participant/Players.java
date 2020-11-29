@@ -13,6 +13,10 @@ public class Players {
         this.players = new ArrayList<Player>();
     }
 
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+
     public void addPlayer(Player player) {
         this.players.add(player);
     }
@@ -33,10 +37,6 @@ public class Players {
         return this.players;
     }
 
-    public void resetPlayers() {
-        // TODO
-    }
-
     public String toString() {
         String str = "\n";
         str += "PLAYERS:\n";
@@ -53,12 +53,12 @@ public class Players {
     public String toString(boolean balance) {
         String str = "\n";
         str += "PLAYERS:\n";
-        str += "name\t\t\tmoney won\t\t\tbalance\n";
+        str += "name\t\t\tmoney won\t\tbalance\n";
         for (Player player : getPlayers()) {
             str += player + "\t\t\t" + player.getBalance() + "\n";
         }
         str += "\nDEALER\n";
-        str += "name\t\tmoney won\t\tbalance\n";
+        str += "name\t\t\tmoney won\t\tbalance\n";
         str += dealer + "\t\t\t" + dealer.getBalance() + "\n";
         return str;
     }

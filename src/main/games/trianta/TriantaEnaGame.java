@@ -50,6 +50,7 @@ public class TriantaEnaGame extends SumCardGame {
         Card card = getTable().getNextCard();
         card.flipCard(true);
         System.out.println(card);
+        card.flipCard(false);
         getTable().dealCard(dealer.getHand(), card);
         Input.pressEnter();
 

@@ -1,5 +1,8 @@
 package games.trianta;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import games.Play;
 import structure.participant.Dealer;
 import structure.participant.Player;
@@ -23,11 +26,32 @@ public class PlayTriantaEna extends Play {
         Input.pressEnter();
         TriantaEnaGame game = new TriantaEnaGame(table);
         boolean play = true;
+        
         while(play) {
             play = game.play();
             if (play) {
+                ArrayList<Player> currPlayers = players.getPlayers();
+                ArrayList<Player> availablePlayers = new ArrayList<Player>();
+                for (Player player : currPlayers) {
+                    if (player.getBalance() > 0) {
+                        availablePlayers.add(player);
+                    }
+                }
+                if (players.getDealer().getBalance() <= 0) {
+                    players.addDealer(null);
+                }
+
+                if (availablePlayers.size() == 0) {
+                    break;
+                } else {
+                    players.setPlayers(availablePlayers);
+                }
+
+                rotateDealer(players);
                 refreshPlayers(players);
             }
+            System.out.println("Players/Dealer with <=0 balance are removed");
+            System.out.println(table.getPlayers().toString(true));
         }
     }
 
@@ -72,6 +96,42 @@ public class PlayTriantaEna extends Play {
     }
 
     private void rotateDealer(Players players) {
+        ArrayList<Player> currPlayers = players.getPlayers();
+        Dealer dealer = players.getDealer();
+        
+        Collections.sort(currPlayers);
+        if (dealer == null) {
+            System.out.println("Dealer has ran out of money, player with most money will become dealer now");
+            makeDealer(currPlayers.get(0));
+        } else {
+            Player newDealer = null;
+            for (Player player : currPlayers) {
+                if (player.getBalance() > dealer.getBalance()) {
+                    System.out.println(player.getName() + ": Do you want to be the dealer?");
+                    if (Input.yesOrNo()) {
+                        newDealer = player;
+                        break;
+                    }
+                }
+            }
+            if (newDealer != null) {
+                makePlayer(dealer);
+                players.addPlayer(makePlayer(dealer));
+                players.addDealer(makeDealer(newDealer));
+                players.remove(newDealer);
+            }
+        }
+    }
 
+    private Dealer makeDealer(Player player) {
+        Dealer dealer = new Dealer(player.getName());
+        dealer.setBalance(player.getBalance());
+        return dealer;
+    }
+
+    private Player makePlayer(Dealer dealer) {
+        Player player = new Player(dealer.getName());
+        player.setBalance(dealer.getBalance());
+        return player;
     }
 }

@@ -43,11 +43,13 @@ public class GameInitializer {
     }
 
     public void playBlackJack(int numPlayers) {
+        System.out.print("\n\n\t\tWelcome to Black Jack\n\n");
         PlayBlackJack game = new PlayBlackJack(numPlayers);
         game.start();
     }
 
     public void playTriantaEna(int numPlayers) {
+        System.out.print("\n\n\t\tWelcome to Trianta Ena\n\n");
         PlayTriantaEna game = new PlayTriantaEna(numPlayers);
         game.start();
     }
