@@ -114,9 +114,11 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
     public void updateHandsStatus(Player player) {
         for (PlayerHand hand : player.getHands()) {
             if (hand.getStatus()) {
-                if (isBust(hand)) {
-                    System.out.println("Current hand is bust");
-                    hand.setStatus(false);
+                if (this instanceof BlackJackGame) {
+                    if (isBust(hand)) {
+                        System.out.println("Current hand is bust");
+                        hand.setStatus(false);
+                    }
                 }
                 if (isWin(hand)) {
                     System.out.println("You have hit " + name);
@@ -196,7 +198,6 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
 
         // Check winner of and end current round
         checkWinner();
-        System.out.println(getTable().getPlayers());
         Input.pressEnter();
 
         System.out.println("Play another round?");

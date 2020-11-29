@@ -34,6 +34,7 @@ public class PlayTriantaEna extends Play {
         
         while(play) {
             play = game.play();
+            System.out.println(table.getPlayers().toString(true));
             System.out.println("Players/Dealer with <=0 balance are removed");
             if (play) {
                 ArrayList<Player> currPlayers = players.getPlayers();
@@ -48,6 +49,7 @@ public class PlayTriantaEna extends Play {
                 }
 
                 if (availablePlayers.size() == 0) {
+                    System.out.println("Players are out of money, quitting");
                     break;
                 } else {
                     players.setPlayers(availablePlayers);

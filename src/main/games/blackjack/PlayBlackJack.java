@@ -29,6 +29,7 @@ public class PlayBlackJack extends Play  {
         boolean play = true;
         while(play) {
             play = game.play();
+            System.out.println(table.getPlayers().toString());
             if (play) {
                 refreshPlayers(players);
             }
