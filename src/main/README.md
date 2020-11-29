@@ -8,6 +8,8 @@ BUID: U77947592
 Compilation and Execution Instructions:
 Using terminal, execute the following commands:
 ```Bash
+    tar -xvzf card_games.tar.gz
+    cd main
     javac Main.java
     javaMain
 ```
