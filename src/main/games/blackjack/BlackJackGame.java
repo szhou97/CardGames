@@ -30,167 +30,53 @@ public class BlackJackGame extends SumCardGame {
     /**
      * The body of the game
      */
-    @Override
-    public boolean play() {
-        int round = 0;
-        int input = 0;
 
-        // Deal two rounds of card
-        while (round < 2) {
+    @Override
+    public void startRound() {
+         // Deal two rounds of card
+         for (int i = 0; i < 2; i++) {
             System.out.println("The dealer will now deal a round of cards for every player on the table");
             for (Player player : players) {
                 Card card = blackJackTable.getNextCard();
                 card.flipCard(true);
                 blackJackTable.dealCard(player.getHands().get(0), card);
-                if (isBlackJack(player.getHands().get(0))) {
+                if (isWin(player.getHands().get(0))) {
                     player.getHands().get(0).setStatus(false);
                 }
             }
             Card card = blackJackTable.getNextCard();
-            if (round < 1) {
+            if (i < 1) {
                 card.flipCard(true);
             } else {
                 card.flipCard(false);
             }
             blackJackTable.dealCard(dealer.getHand(), card);
             System.out.println(blackJackTable);
-            round++;
             Input.pressEnter();
         }
-
-        // Player make choices every round
-        boolean active = true;
-        while (active) {
-            active = false;
-            for (Player player : players) {
-                ArrayList<PlayerHand> hands = player.getHands();
-                for (int i = 0; i < hands.size(); i++) {
-                    PlayerHand hand = hands.get(i);
-                    if (hand.getStatus()) {
-                        active = true;
-                        int max = 3;
-                        System.out.println(player.getName() + ", please choose what to do for Hand: " + i);
-                        System.out.print("0: view cards, 1: hit, 2: stand, 3: double up");
-                        if (isDouble(hand)) {
-                            max = 4;
-                            System.out.println(", 4: split");
-                        }
-                        System.out.print("\n");
-                        boolean done = false;
-                        while (!done) {
-                            done = true;
-                            input = Input.integerInput(0, max);
-                            switch(input) {
-                                case 0: System.out.println(hand); done = false; break;
-                                case 1: hit(hand); break;
-                                case 2: stand(hand); break;
-                                case 3: doubleUp(hand); break;
-                                case 4: split(player, hand); break;
-                            }
-                        }
-                    }
-                }
-                // Print out resulting hand after move
-                if (active) {
-                    for (PlayerHand hand : hands) {
-                        if (isBust(hand, BlackJackRules.PLAYER_CAP) || isBlackJack(hand)) {
-                            hand.setStatus(false);
-                        }
-                        System.out.println(player.getName() + ":");
-                        System.out.println(hand);
-                    }
-                } else {
-                    break;
-                }
-            }
-        }
-
-        // Check if dealer moves are necessary
-        active = false;
-        for (Player player : players) {
-            for (Hand hand : player.getHands()) {
-                if (!isBust(hand, BlackJackRules.PLAYER_CAP)) {
-                    active = true;
-                    break;
-                }
-            }
-            if (active) {
-                break;
-            }
-        }
-
-        // Dealer move
-        System.out.println("DEALER: Please flip last card");
-        Input.pressEnter();
-        ArrayList<Card> cards = dealer.getHand().getCards();
-        cards.get(cards.size() - 1).flipCard(true);
-        System.out.println(dealer.getHand());
-
-        if (active) {
-            while (!isBust(dealer.getHand(), BlackJackRules.DEALER_CAP)) {
-                System.out.println("DEALER: Please hit by press enter");
-                Input.pressEnter();
-                hit(dealer.getHand());
-                System.out.println(dealer.getHand());
-            }
-        }
-
-        // Check winner of and end current round
-        checkWinner(getTable().getPlayers());
-        System.out.println(getTable().getPlayers());
-        Input.pressEnter();
-        System.out.println("Play another round?");
-        return Input.yesOrNo();
     }
+    
 
-    /**
-     * Check the winners of the current table, and give/take money when appropriate
-     */
     @Override
-    public void checkWinner(Players players) {
-        Dealer dealer = players.getDealer();
-        int dealerValue = players.getDealer().getHand().getTotalValue();
-
-        for (Player player : players.getPlayers()) {
-            for (PlayerHand hand : player.getHands()) {
-                boolean playerWin = false;
-                // Player loses when bust, regardless of dealer's hand
-                if (isBust(hand, BlackJackRules.PLAYER_CAP)) {
-                    System.out.println(player.getName() + "'s hand is bust");
-                    playerWin = false;
-                } else {
-                    // If dealer busts, player win
-                    if (isBust(dealer.getHand(), BlackJackRules.PLAYER_CAP)) {
-                        System.out.println(dealer.getName() + "is bust");
-                        playerWin = true;
-                    } else {
-                        // Neither player/dealer bust
-                        if (hand.getTotalValue() > dealerValue) {
-                            playerWin = true;
-                        } else if (hand.getTotalValue() < dealerValue) {
-                            playerWin = false;
-                        } else {
-                            if (isBlackJack(hand)) {
-                                if (isNaturalBlackJack(hand) && !isNaturalBlackJack(dealer.getHand())) {
-                                    System.out.println(player.getName() + " is natural black");
-                                    playerWin = true;
-                                } else if (!isNaturalBlackJack(hand) && isNaturalBlackJack(dealer.getHand())) {
-                                    System.out.println(dealer.getName() + " is natural blakc");
-                                    playerWin = false;
-                                } else {
-                                    System.out.println("Game is tie, bet is returned");
-                                }
-                            }
-                        }
-                    }
-                }
-                if (playerWin) { 
-                    System.out.println(player.getName() + " won " + 2*hand.getBet());
-                    distribute(player, dealer, 2*hand.getBet());
-                } else {
-                    System.out.println(player.getName() + " lost " + hand.getBet());
-                    distribute(player, dealer, -hand.getBet());
-                }
+    public void playerMove(Player player, PlayerHand hand) {
+        int max = 3, input = 0;
+        System.out.println(player.getName() + ", please choose what to do for current hand");
+        System.out.print("0: view cards, 1: hit, 2: stand, 3: double up");
+        if (isDouble(hand)) {
+            max = 4;
+            System.out.println(", 4: split");
+        }
+        System.out.print("\n");
+        boolean done = false;
+        while (!done) {
+            done = true;
+            input = Input.integerInput(0, max);
+            switch(input) {
+                case 0: System.out.println(hand); done = false; break;
+                case 1: hit(hand); break;
+                case 2: stand(hand); break;
+                case 3: doubleUp(hand); break;
+                case 4: split(player, hand); break;
             }
         }
     }
@@ -222,34 +108,6 @@ public class BlackJackGame extends SumCardGame {
         hit(newHand);
     }
 
-    /**
-     * Some black jack specific methods
-     */
-    private boolean isBlackJack(Hand hand) {
-        boolean result = false;
-        if (hand.getTotalValue() == BlackJackRules.PLAYER_CAP) {
-            System.out.println("You have hit blackjack!");
-            result = true;
-        }
-        return result;
-    }
-
-    private boolean isNaturalBlackJack(Hand hand) {
-        boolean naturalBlack = false;
-        if (isBlackJack(hand)) {
-            ArrayList<Card> cards = hand.getCards();
-            if (cards.size() == 2) {
-                for (Card card : cards) {
-                    if (card.getType().equals("A")) {
-                        naturalBlack = true;
-                        break;
-                    }
-                }
-            }
-        }
-        return naturalBlack;
-    }
-
     private boolean isDouble(Hand hand) {
         ArrayList<Card> cards = hand.getCards();
         if (cards.size() >= 2) {
@@ -259,5 +117,22 @@ public class BlackJackGame extends SumCardGame {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void tie(Player player, Dealer dealer, PlayerHand hand) {
+        System.out.println("Game is tie between PLAYER: " + player.getName() + " and DEALER: " + dealer.getName());
+    }
+
+    @Override
+    public void win(Player player, Dealer dealer, PlayerHand hand) {
+        System.out.println(player.getName() + " won " + 2*hand.getBet());
+        distribute(player, dealer, 2*hand.getBet());
+    }
+
+    @Override
+    public void lose(Player player, Dealer dealer, PlayerHand hand) {
+        System.out.println(player.getName() + " lost " + hand.getBet());
+        distribute(player, dealer, -hand.getBet());
     }
 }

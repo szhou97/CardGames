@@ -1,7 +1,6 @@
 package games.trianta;
 
 import games.Play;
-import games.Replayable;
 import structure.participant.Dealer;
 import structure.participant.Player;
 import structure.participant.Players;
@@ -9,7 +8,7 @@ import structure.table.CardGameTable;
 import utilities.Input;
 import utilities.PlayerInit;
 
-public class PlayTriantaEna extends Play implements Replayable {
+public class PlayTriantaEna extends Play {
     public PlayTriantaEna(int numPlayers) {
         super(numPlayers);
     }
@@ -18,8 +17,9 @@ public class PlayTriantaEna extends Play implements Replayable {
         Players players = initPlayers();
         CardGameTable table = new CardGameTable(players, TriantaEnaRules.NUM_DECKS);
         System.out.println("Current players on the table: ");
-        System.out.println(table.getPlayers());
-        System.out.println("The game will begin now. Good Luck!!");
+        System.out.println(table.getPlayers().toString(true));
+        System.out.println("\nIn this game, players will start with the same amount of money, while the dealer will start with three times of that amount. ");
+        System.out.println("\nThe game will begin now. Good Luck!!");
         Input.pressEnter();
         TriantaEnaGame game = new TriantaEnaGame(table);
         boolean play = true;
@@ -29,7 +29,6 @@ public class PlayTriantaEna extends Play implements Replayable {
                 refreshPlayers(players);
             }
         }
-        
     }
 
     @Override
@@ -40,34 +39,34 @@ public class PlayTriantaEna extends Play implements Replayable {
         for (int i = 0; i < getNumPlayers(); i++) {
             boolean done = false;
             while(!done) {
-                System.out.println("Creating player " + (i + 1));
-                String name = PlayerInit.setName();
+                Player player = createPlayer(i + 1);
                 System.out.println("Player details: ");
-                System.out.println("name: " + name + ", balance: " + balance);
+                System.out.println("name: " + player.getName());
                 System.out.println("Confirm?");
                 if (Input.yesOrNo()) {
-                    players.addPlayer(new Player(name, true, 0, balance, 0));
+                    player.setBalance(balance);
+                    players.addPlayer(player);
                     done = true;
                 } 
             }
         }
+        Dealer dealer = null;
         boolean done = false;
         while (!done) {
-            String name = "dealer";
-            boolean human = false;
             if (PlayerInit.dealerInfo()) {
-                human = true;
-                name = PlayerInit.setName();
+                dealer = createDealer();
                 System.out.println("Dealer details: ");
-                System.out.println("name: " + name + ", balance: " + 3*balance);
+                System.out.println("name: " + dealer.getName());
                 System.out.println("Confirm?");
                 if (Input.yesOrNo()) {
                     done = true;
                 }
             } else {
+                dealer = new Dealer("dealer");
                 done = true;
             }
-            players.addDealer(new Dealer(name, human, 3*balance, 0));
+            dealer.setBalance(3*balance);
+            players.addDealer(dealer);
         }
         return players;
     }

@@ -42,11 +42,24 @@ public class Players {
         str += "PLAYERS:\n";
         str += "name\t\tmoney won\n";
         for (Player player : getPlayers()) {
-            str += player;
+            str += player + "\n";
         }
         str += "\nDEALER\n";
         str += "name\t\tmoney won\n";
-        str += dealer;
+        str += dealer + "\n";
+        return str;
+    }
+
+    public String toString(boolean balance) {
+        String str = "\n";
+        str += "PLAYERS:\n";
+        str += "name\t\t\tmoney won\t\t\tbalance\n";
+        for (Player player : getPlayers()) {
+            str += player + "\t\t\t" + player.getBalance() + "\n";
+        }
+        str += "\nDEALER\n";
+        str += "name\t\tmoney won\t\tbalance\n";
+        str += dealer + "\t\t\t" + dealer.getBalance() + "\n";
         return str;
     }
 

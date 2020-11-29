@@ -10,7 +10,8 @@ public abstract class CardGame {
     }
 
     public abstract boolean play();
-    public abstract void checkWinner(Players players);
+    public abstract void dealerMove();
+    public abstract void checkWinner();
 
     public CardGameTable getTable() {
         return table;

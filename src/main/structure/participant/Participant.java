@@ -2,14 +2,12 @@ package structure.participant;
 
 public abstract class Participant {
     private final String name;
-    private boolean human;
     private int moneyWon;
     private int balance;
-    public Participant(String name, boolean human, int balance, int moneyWon) {
+    public Participant(String name) {
         this.name = name;
-        this.human = human;
-        this.moneyWon = moneyWon;
-        this.balance = balance;
+        balance = 0;
+        moneyWon = 0;
     }
 
     public void setMoneyWon(int moneyWon) {
@@ -32,7 +30,7 @@ public abstract class Participant {
         return this.moneyWon;
     }
 
-    public boolean isHuman() {
-        return this.human;
+    public String toString() {
+        return getName() + "\t\t\t" + getMoneyWon();
     }
 }

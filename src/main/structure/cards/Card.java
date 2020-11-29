@@ -38,7 +38,7 @@ public class Card {
         if (this.faceUp) {
             out = this.type.getType() + " of " + this.suit.getSuit();
         } else {
-            out = "***\n";
+            out = "***";
         }
         return out;
     }

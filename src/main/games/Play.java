@@ -2,10 +2,7 @@ package games;
 
 import java.util.ArrayList;
 
-import structure.participant.Dealer;
-import structure.participant.Player;
-import structure.participant.Players;
-import utilities.Input;
+import structure.participant.*;
 import utilities.PlayerInit;
 
 public abstract class Play implements Replayable {
@@ -30,5 +27,17 @@ public abstract class Play implements Replayable {
             int bet = PlayerInit.setBet(player.getBalance());
             player.placeNewBet(bet);
         }
+    }
+
+    public Player createPlayer(int index) {
+        System.out.println("Creating player " + index);
+        String name = PlayerInit.setName();
+        return new Player(name);
+    }
+
+    public Dealer createDealer() {
+        System.out.println("Creating dealer ");
+        String name = PlayerInit.setName();
+        return new Dealer(name);
     }
 }

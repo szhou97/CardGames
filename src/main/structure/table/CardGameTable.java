@@ -37,9 +37,11 @@ public class CardGameTable extends GameTable implements TableFunctions{
             str += "\n";
             str += players.get(i).getName() + "\n";
             ArrayList<PlayerHand> hands = players.get(i).getHands();
-            for (int j = 0; j < hands.size(); j++) {
-                str += "Hand: " + j + "\n";
-                str += hands.get(j);
+            if (hands.size() != 0) {
+                for (int j = 0; j < hands.size(); j++) {
+                    str += "Hand: " + j + "\n";
+                    str += hands.get(j);
+                }
             }
         }
         str += "\nDealer: \n";

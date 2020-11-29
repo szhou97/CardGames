@@ -35,35 +35,38 @@ public class PlayBlackJack extends Play implements Replayable {
         for (int i = 0; i < getNumPlayers(); i++) {
             boolean done = false;
             while(!done) {
-                System.out.println("Creating player " + (i + 1));
-                String name = PlayerInit.setName();
-                int bet = PlayerInit.setBet(100000);
+                Player player = createPlayer(i + 1);
+                player.setBalance(100000);
+                int bet = PlayerInit.setBet(player.getBalance());
                 System.out.println("Player details: ");
-                System.out.println("name: " + name + ", bet: " + bet);
+                System.out.println("name: " + player.getName() + ", bet: " + bet);
                 System.out.println("Confirm?");
                 if (Input.yesOrNo()) {
-                    players.addPlayer(new Player(name, true, bet, 0, 0));
+                    player.placeNewBet(bet);
+                    players.addPlayer(player);
                     done = true;
                 } 
             }
         }
         boolean done = false;
+        Dealer dealer = null;
         while (!done) {
-            String name = "dealer";
-            boolean human = false;
             if (PlayerInit.dealerInfo()) {
-                human = true;
-                name = PlayerInit.setName();
+                dealer = createDealer();
+                dealer.setBalance(100000);
                 System.out.println("Dealer details: ");
-                System.out.println("name: " + name);
+                System.out.println("name: " + dealer.getName());
                 System.out.println("Confirm?");
                 if (Input.yesOrNo()) {
+                    players.addDealer(dealer);
                     done = true;
                 }
             } else {
+                String name = "dealer";
+                dealer = new Dealer(name);
+                players.addDealer(dealer);
                 done = true;
             }
-            players.addDealer(new Dealer(name, human, 0, 0));
         }
         return players;
     }
