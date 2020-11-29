@@ -35,6 +35,7 @@ public class BlackJackGame extends SumCardGame {
         int round = 0;
         int input = 0;
 
+        // Deal two rounds of card
         while (round < 2) {
             System.out.println("The dealer will now deal a round of cards for every player on the table");
             for (Player player : players) {
@@ -89,7 +90,7 @@ public class BlackJackGame extends SumCardGame {
                         }
                     }
                 }
-
+                // Print out resulting hand after move
                 if (active) {
                     for (PlayerHand hand : hands) {
                         if (isBust(hand, BlackJackRules.PLAYER_CAP) || isBlackJack(hand)) {
@@ -104,7 +105,7 @@ public class BlackJackGame extends SumCardGame {
             }
         }
 
-        // Dealer move
+        // Check if dealer moves are necessary
         active = false;
         for (Player player : players) {
             for (Hand hand : player.getHands()) {
@@ -118,86 +119,33 @@ public class BlackJackGame extends SumCardGame {
             }
         }
 
+        // Dealer move
+        System.out.println("DEALER: Please flip last card");
+        Input.pressEnter();
+        ArrayList<Card> cards = dealer.getHand().getCards();
+        cards.get(cards.size() - 1).flipCard(true);
+        System.out.println(dealer.getHand());
+
         if (active) {
-            while (isBust(dealer.getHand(), BlackJackRules.DEALER_CAP)) {
-                System.out.println(dealer.getHand());
-                System.out.println("DEALER: Please hit");
+            while (!isBust(dealer.getHand(), BlackJackRules.DEALER_CAP)) {
+                System.out.println("DEALER: Please hit by press enter");
                 Input.pressEnter();
                 hit(dealer.getHand());
+                System.out.println(dealer.getHand());
             }
         }
 
+        // Check winner of and end current round
         checkWinner(getTable().getPlayers());
         System.out.println(getTable().getPlayers());
         Input.pressEnter();
         System.out.println("Play another round?");
-        
         return Input.yesOrNo();
     }
 
-     /**
-     * Player doubles bet, then hit and stand
-     */
-    private void doubleUp(PlayerHand hand) {
-        hand.setBet(hand.getBet() * 2);
-        hit(hand);
-        stand(hand);
-    }
-
     /**
-     * Player splits into two hands. The two hands will move independently
+     * Check the winners of the current table, and give/take money when appropriate
      */
-    private void split(Player player, Hand hand) {
-        //player.split(hand);
-        int bet = ((PlayerHand) hand).getBet();
-        ArrayList<Card> cards = hand.getCards();
-        cards.remove(cards.size() - 1);
-
-        PlayerHand newHand = new PlayerHand(bet);
-        for (Card card : cards) {
-            newHand.addCard(card);
-        }
-        player.getHands().add(newHand);
-        hit(hand);
-        hit(newHand);
-    }
-
-    private boolean isBlackJack(Hand hand) {
-        boolean result = false;
-        if (hand.getTotalValue() == BlackJackRules.PLAYER_CAP) {
-            System.out.println("You have hit blackjack!");
-            result = true;
-        }
-        return result;
-    }
-
-    private boolean isNaturalBlackJack(Hand hand) {
-        boolean naturalBlack = false;
-        if (isBlackJack(hand)) {
-            ArrayList<Card> cards = hand.getCards();
-            if (cards.size() == 2) {
-                for (Card card : cards) {
-                    if (card.getType().equals("A")) {
-                        naturalBlack = true;
-                        break;
-                    }
-                }
-            }
-        }
-        return naturalBlack;
-    }
-
-    private boolean isDouble(Hand hand) {
-        ArrayList<Card> cards = hand.getCards();
-        if (cards.size() >= 2) {
-            Card card1 = cards.get(cards.size() - 1);
-            Card card2 = cards.get(cards.size() - 2);
-            return card1.getType().equals(card2.getType());
-        } else {
-            return false;
-        }
-    }
-
     @Override
     public void checkWinner(Players players) {
         Dealer dealer = players.getDealer();
@@ -244,6 +192,72 @@ public class BlackJackGame extends SumCardGame {
                     distribute(player, dealer, -hand.getBet());
                 }
             }
+        }
+    }
+
+     /**
+     * Player doubles bet, then hit and stand
+     */
+    private void doubleUp(PlayerHand hand) {
+        hand.setBet(hand.getBet() * 2);
+        hit(hand);
+        stand(hand);
+    }
+
+    /**
+     * Player splits into two hands. The two hands will move independently
+     */
+    private void split(Player player, Hand hand) {
+        //player.split(hand);
+        int bet = ((PlayerHand) hand).getBet();
+        ArrayList<Card> cards = hand.getCards();
+        cards.remove(cards.size() - 1);
+
+        PlayerHand newHand = new PlayerHand(bet);
+        for (Card card : cards) {
+            newHand.addCard(card);
+        }
+        player.getHands().add(newHand);
+        hit(hand);
+        hit(newHand);
+    }
+
+    /**
+     * Some black jack specific methods
+     */
+    private boolean isBlackJack(Hand hand) {
+        boolean result = false;
+        if (hand.getTotalValue() == BlackJackRules.PLAYER_CAP) {
+            System.out.println("You have hit blackjack!");
+            result = true;
+        }
+        return result;
+    }
+
+    private boolean isNaturalBlackJack(Hand hand) {
+        boolean naturalBlack = false;
+        if (isBlackJack(hand)) {
+            ArrayList<Card> cards = hand.getCards();
+            if (cards.size() == 2) {
+                for (Card card : cards) {
+                    if (card.getType().equals("A")) {
+                        naturalBlack = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return naturalBlack;
+    }
+
+    private boolean isDouble(Hand hand) {
+        ArrayList<Card> cards = hand.getCards();
+        if (cards.size() >= 2) {
+            Card card1 = cards.get(cards.size() - 1);
+            Card card2 = cards.get(cards.size() - 2);
+            return card1.getType().equals(card2.getType());
+        } else {
+            return false;
         }
     }
 }

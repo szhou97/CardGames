@@ -11,37 +11,17 @@ import structure.participant.*;
  */
 public class CardGameTable extends GameTable implements TableFunctions{
 
-    private Deck deck;
-    public CardGameTable(Players players) {
+    private Shoe shoe;
+    public CardGameTable(Players players, int numDecks) {
         super(players);
-        this.deck = new Deck();
-    }
-
-    public void distribute(Participant player, Participant dealer, int amount) {
-        // TODO
+        shoe = new Shoe(numDecks);
     }
 
     /**
      * @return the next card
      */
     public Card getNextCard() {
-        return this.deck.getNextCard();
-    }
-
-    /**
-     * Provide a new deck
-     */
-    @Override
-    public void newDeck() {
-        this.deck = new Deck();
-    }
-
-    /**
-     * @return the deck size
-     */
-    @Override
-    public int deckSize() {
-        return this.deck.deckSize();
+        return shoe.getNextCard();
     }
 
     @Override
@@ -66,4 +46,6 @@ public class CardGameTable extends GameTable implements TableFunctions{
         str += dealer.getName() + "\n" + dealer.getHand();
         return str;
     }
+
+    
 }

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class Player extends Participant {
     private ArrayList<PlayerHand> hands;
 
-    public Player(String name, boolean human, int bet, int moneyWon) {
-        super(name, human, moneyWon);
+    public Player(String name, boolean human, int bet, int balance, int moneyWon) {
+        super(name, human, balance, moneyWon);
         hands = new ArrayList<PlayerHand>();
         hands.add(new PlayerHand(bet));
     }

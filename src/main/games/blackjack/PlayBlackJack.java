@@ -2,21 +2,21 @@ package games.blackjack;
 
 import java.util.ArrayList;
 
+import games.Play;
+import games.Replayable;
 import structure.participant.*;
-import structure.table.CardGameTable;
-import utilities.Input;
-import utilities.PlayerInit;
+import structure.table.*;
+import utilities.*;
 
 
-public class PlayBlackJack {
-    private int numPlayers;
+public class PlayBlackJack extends Play implements Replayable {
     public PlayBlackJack(int numPlayers) {
-        this.numPlayers = numPlayers;
+        super(numPlayers);
     }
 
-    public boolean start() {
+    public void start() {
         Players players = initPlayers();
-        CardGameTable table = new CardGameTable(players);
+        CardGameTable table = new CardGameTable(players, BlackJackRules.NUM_DECKS);
         System.out.println("Current players on the table: ");
         System.out.println(table.getPlayers());
         System.out.println("The game will begin now. Good Luck!!");
@@ -29,63 +29,15 @@ public class PlayBlackJack {
                 refreshPlayers(players);
             }
         }
-        return false;
     }
 
-    private void refreshPlayers(Players players) {
-        Dealer dealer = players.getDealer();
-        ArrayList<Player> p = players.getPlayers();
-        dealer.getHand().clearHand();
-        for (Player player : p) {
-            System.out.println(player.getName() + ":");
-            int bet = PlayerInit.setBet(10000);
-            player.placeNewBet(bet);
-            player.setMoneyWon(player.getMoneyWon() - bet);
-        }
-    }
-
-    private Players initPlayers() {
+    @Override
+    public Players initPlayers() {
         Players players = new Players();
-        int minDealerBalance = 0;
-        for (int i = 0; i < numPlayers; i++) {
-            boolean done = false;
-            while(!done) {
-                System.out.println("Creating player " + (i + 1));
-                String name = PlayerInit.setName();
-                int bet = PlayerInit.setBet(10000);
-                minDealerBalance += bet;
-                System.out.println("Player details: ");
-                System.out.println("name: " + name + ", bet: " + bet);
-                System.out.println("Confirm?");
-                if (Input.yesOrNo()) {
-                    Player player = new Player(name, true, bet, 0);
-                    players.addPlayer(player);
-                    done = true;
-                } 
-            }
+        for (int i = 0; i < getNumPlayers(); i++) {
+            players.addPlayer(createPlayer(i + 1, 100000));
         }
-        boolean done = false;
-        while (!done) {
-            String name = "dealer";
-            boolean human = false;
-            int balance = 10000000;
-            if (PlayerInit.dealerInfo()) {
-                human = true;
-                name = PlayerInit.setName();
-                System.out.println("The minimum balance for a dealer should be 3 times the total bet of current players");
-                balance = PlayerInit.setBalance(minDealerBalance * 3, Integer.MAX_VALUE);
-                System.out.println("Dealer details: ");
-                System.out.println("name: " + name + ", balance: " + balance);
-                System.out.println("Confirm?");
-                if (Input.yesOrNo()) {
-                    done = true;
-                }
-            } else {
-                done = true;
-            }
-            Dealer dealer = new Dealer(name, human, balance, 0);
-            players.addDealer(dealer);
-        }
+        players.addDealer(createDealer(0));
         return players;
     }
 }

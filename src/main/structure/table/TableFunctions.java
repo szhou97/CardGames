@@ -8,7 +8,5 @@ import structure.participant.Hand;
  */
 public interface TableFunctions {
     public Card getNextCard();  // Returns a new card from the shoe
-    public void newDeck();      // Creates a new deck of cards
-    public int deckSize();      // Returns the size of the current deck
     public void dealCard(Hand hand, Card card);
 }

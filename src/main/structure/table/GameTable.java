@@ -13,21 +13,7 @@ public abstract class GameTable {
         this.players = players;
     }
 
-    public void incrementGamesPlayed() {
-        for (Player player : this.players.getPlayers()) {
-            player.incrementGamePlayed();
-        }
-    }
-
     public Players getPlayers() {
         return this.players;
     }
-
-    // public void printRecords() {
-    //     Printer.printRecord(this.players.getPlayers());
-    // }
-
-    // public void printTable() {
-    //     Printer.printTable(this.players.getPlayers());
-    // }
 }

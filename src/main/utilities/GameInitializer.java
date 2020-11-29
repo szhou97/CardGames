@@ -15,9 +15,6 @@ import structure.participant.*;
  * A class dedicated to run a game repetitively unless quit by the user
  */
 public class GameInitializer {
-
-    private boolean finished;
-
     public GameInitializer() {
 
     }
@@ -45,19 +42,14 @@ public class GameInitializer {
         }
     }
 
-    /**
-     * Running game repetitively
-     */
     public void playBlackJack(int numPlayers) {
         PlayBlackJack game = new PlayBlackJack(numPlayers);
-        boolean end = false;
-        while (!end) {
-            end = game.start();
-        } 
+        game.start();
     }
 
     public void playTriantaEna(int numPlayers) {
-        PlayTriantaEna game = new PlayTriantaEna();
+        PlayTriantaEna game = new PlayTriantaEna(numPlayers);
+        game.start();
     }
 
 

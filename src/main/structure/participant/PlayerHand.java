@@ -22,7 +22,7 @@ public class PlayerHand extends Hand implements CardGamePlayer {
 
     @Override
     public String toString() {
-        String str = "Bet: " + getBet();
+        String str = "Bet: " + getBet() + "\n";
         for (Card card : getCards()) {
             str += card.toString();
             str += "\n";
