@@ -69,14 +69,14 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
                 break;
             }
         }
-        // Dealer move
-        System.out.println("DEALER: Please flip your face down card by press enter");
-        Input.pressEnter();
-        ArrayList<Card> cards = dealer.getHand().getCards();
-        cards.get(faceDownIndex).flipCard(true);
-        System.out.println(dealer.getHand());
 
         if (active) {
+            // Dealer move
+            System.out.println("DEALER: Please flip your face down card by press enter");
+            Input.pressEnter();
+            ArrayList<Card> cards = dealer.getHand().getCards();
+            cards.get(faceDownIndex).flipCard(true);
+            System.out.println(dealer.getHand());
             while (dealer.getHand().getTotalValue() < dealerCap) {
                 System.out.println("DEALER: Please hit by press enter");
                 Input.pressEnter();

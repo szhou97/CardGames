@@ -31,6 +31,7 @@ public class TriantaEnaGame extends SumCardGame {
         Dealer dealer = getTable().getPlayers().getDealer();
         ArrayList<Player> players = getTable().getPlayers().getPlayers();
 
+        boolean play = false;
         // Deal first round of cards and ask for bet input
         for (Player player : players) {
             System.out.println("DEALER: Press enter to deal a card for " + player.getName());
@@ -41,6 +42,7 @@ public class TriantaEnaGame extends SumCardGame {
             System.out.println("Please remember your card. It will be kept face down");
             System.out.println("Would you like to place a bet? Select no to fold");
             if (Input.yesOrNo()) {
+                play = true;
                 System.out.println("Please place a bet. The bet needs to be smaller than your balance.");
                 int bet = PlayerInit.setBet(player.getBalance());
                 player.placeNewBet(bet);
@@ -51,6 +53,9 @@ public class TriantaEnaGame extends SumCardGame {
                 player.placeNewBet(0);
                 player.getHands().get(0).setStatus(false);
             }
+        }
+        if (!play) {
+            return;
         }
 
         // Dealer gets a card
