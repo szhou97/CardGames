@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: TableFunctions
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package structure.table;
 
 import structure.cards.Card;

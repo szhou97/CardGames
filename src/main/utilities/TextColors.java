@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: TextColors
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package utilities;
 
 public class TextColors {

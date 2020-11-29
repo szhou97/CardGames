@@ -1,11 +1,16 @@
+/******************************************************************************
+ * Class: Player
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package structure.participant;
 
 import java.util.ArrayList;
 
 /**
- * The player object contains a PlayerType object, an Account object and 1-2
- * Hand object depending on player moves during the game. It serves the purpose
- * of storing/updating any information related to a single player
+ * The player object contains an arraylist of playerhand object.
+ * It serves the purpose of storing/updating any information related 
+ * to a single player
  */
 public class Player extends Participant {
     private ArrayList<PlayerHand> hands;

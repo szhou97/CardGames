@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: Play
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package games;
 
 import java.util.ArrayList;
@@ -5,6 +10,9 @@ import java.util.ArrayList;
 import structure.participant.*;
 import utilities.PlayerInit;
 
+/**
+ * This class contains the methods to manipulate some player information
+ */
 public abstract class Play implements Replayable {
     private int numPlayers;
     public Play(int numPlayers) {

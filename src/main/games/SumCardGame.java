@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Class: SumCardGames
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
+
 package games;
 
 import java.util.ArrayList;
@@ -11,6 +17,12 @@ import structure.participant.*;
 import structure.table.CardGameTable;
 import utilities.Input;
 
+/**
+ * SumCardGames is the parent class for any card game that aims to reach a 
+ * certain number such as BlackJack(21) and TriantaEna(31). It contains the
+ * major game flow methods that can be used by any such game, and abstract
+ * methods that should be implemented by each specific game.
+ */
 public abstract class SumCardGame extends CardGame implements CardGameMoves, MultiRoundGames {
     private String name;
     private int winCap;
@@ -34,7 +46,11 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
         }
     }
 
-    public abstract void playerMove(Player player, PlayerHand hand);
+    public abstract boolean playerMove(Player player, PlayerHand hand);
+
+    /**
+     * Game flow methods
+     */
 
     public void dealerMove() {
         // Check if dealer moves are necessary
@@ -81,7 +97,9 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
                 if (hand.getStatus()) {
                     update = true;
                     active = true;
-                    playerMove(player, hand);
+                    if (!playerMove(player, hand)) {
+                        break;
+                    }
                 }
             }
             // Print out resulting hand and update status
@@ -185,6 +203,10 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
         return Input.yesOrNo();
     }
 
+    /**
+     * Game functions
+     */
+
     @Override
     public void hit(Hand hand) {
         Card card = getTable().getNextCard();
@@ -227,7 +249,9 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
     public void distribute(Player player, Dealer dealer, int money) {
         player.setMoneyWon(player.getMoneyWon() + money);
         dealer.setMoneyWon(dealer.getMoneyWon() - money);
-        player.setBalance(player.getBalance() + player.getMoneyWon());
-        dealer.setBalance(dealer.getBalance() + dealer.getMoneyWon());
+        if (this instanceof TriantaEnaGame) {
+            player.setBalance(player.getBalance() + player.getMoneyWon());
+            dealer.setBalance(dealer.getBalance() + dealer.getMoneyWon());
+        }
     }
 }

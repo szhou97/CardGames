@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: Hand
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package structure.participant;
 
 import java.util.ArrayList;

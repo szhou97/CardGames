@@ -1,16 +1,21 @@
+/******************************************************************************
+ * Class: PlayTriantaEna
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package games.trianta;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import games.Play;
-import structure.participant.Dealer;
-import structure.participant.Player;
-import structure.participant.Players;
+import structure.participant.*;
 import structure.table.CardGameTable;
-import utilities.Input;
-import utilities.PlayerInit;
+import utilities.*;
 
+/**
+ * This class plays the game of trianta ena repeatedly, and checks player information
+ */
 public class PlayTriantaEna extends Play {
     public PlayTriantaEna(int numPlayers) {
         super(numPlayers);
@@ -29,6 +34,7 @@ public class PlayTriantaEna extends Play {
         
         while(play) {
             play = game.play();
+            System.out.println("Players/Dealer with <=0 balance are removed");
             if (play) {
                 ArrayList<Player> currPlayers = players.getPlayers();
                 ArrayList<Player> availablePlayers = new ArrayList<Player>();
@@ -48,9 +54,7 @@ public class PlayTriantaEna extends Play {
                 }
 
                 rotateDealer(players);
-                refreshPlayers(players);
             }
-            System.out.println("Players/Dealer with <=0 balance are removed");
             System.out.println(table.getPlayers().toString(true));
         }
     }

@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: Deck
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package structure.cards;
 
 import java.util.ArrayList;

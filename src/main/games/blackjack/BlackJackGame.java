@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: BlackJackGame
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package games.blackjack;
 
 import java.util.ArrayList;
@@ -8,8 +13,7 @@ import structure.participant.*;
 import structure.table.CardGameTable;
 import utilities.*;
 /**
- *  The BlackJack class stores the actual game flow. It executes the game of 
- *  black jack when called
+ *  The BlackJack class stores some specific methods for the game of blackjack
  */
 public class BlackJackGame extends SumCardGame {
     public static String name = 
@@ -27,10 +31,7 @@ public class BlackJackGame extends SumCardGame {
         dealer = blackJackTable.getPlayers().getDealer();
     }
 
-    /**
-     * The body of the game
-     */
-
+    
     @Override
     public void startRound() {
          // Deal two rounds of card
@@ -58,7 +59,7 @@ public class BlackJackGame extends SumCardGame {
     
 
     @Override
-    public void playerMove(Player player, PlayerHand hand) {
+    public boolean playerMove(Player player, PlayerHand hand) {
         int max = 3, input = 0;
         System.out.println(player.getName() + ", please choose what to do for current hand");
         System.out.print("0: view cards, 1: hit, 2: stand, 3: double up");
@@ -68,6 +69,7 @@ public class BlackJackGame extends SumCardGame {
         }
         System.out.print("\n");
         boolean done = false;
+        boolean next = true;
         while (!done) {
             done = true;
             input = Input.integerInput(0, max);
@@ -76,9 +78,10 @@ public class BlackJackGame extends SumCardGame {
                 case 1: hit(hand); break;
                 case 2: stand(hand); break;
                 case 3: doubleUp(hand); break;
-                case 4: split(player, hand); break;
+                case 4: split(player, hand); next = false; break;
             }
         }
+        return next;
     }
 
      /**
@@ -108,6 +111,11 @@ public class BlackJackGame extends SumCardGame {
         hit(newHand);
     }
 
+    /**
+     * Check if splitting is an option
+     * @param hand
+     * @return
+     */
     private boolean isDouble(Hand hand) {
         ArrayList<Card> cards = hand.getCards();
         if (cards.size() >= 2) {

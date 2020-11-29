@@ -1,5 +1,13 @@
+/******************************************************************************
+ * Class: Participant
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package structure.participant;
 
+/**
+ * The participant object holds information on a participant of the current game.
+ */
 public abstract class Participant implements Comparable<Participant> {
     private final String name;
     private int moneyWon;
@@ -10,6 +18,10 @@ public abstract class Participant implements Comparable<Participant> {
         moneyWon = 0;
     }
 
+    /**
+     * Setters
+     */
+
     public void setMoneyWon(int moneyWon) {
         this.moneyWon = moneyWon;
     }
@@ -17,6 +29,10 @@ public abstract class Participant implements Comparable<Participant> {
     public void setBalance(int balance) {
         this.balance = balance;
     }
+
+    /**
+     * Getters
+     */
 
     public String getName() {
         return this.name;
@@ -34,6 +50,9 @@ public abstract class Participant implements Comparable<Participant> {
         return getName() + "\t\t\t" + getMoneyWon();
     }
 
+    /**
+     * Compare by balance, useful for sorting
+     */
     public int compareTo(Participant p) {
         int result = 0;
         if (getBalance() < p.getBalance()) {

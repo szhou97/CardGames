@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Class: TriantaEnaGame
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
+
 package games.trianta;
 
 import java.util.ArrayList;
@@ -8,6 +14,9 @@ import structure.participant.*;
 import structure.table.*;
 import utilities.*;
 
+/**
+ *  The BlackJack class stores some specific methods for the game of blackjack
+ */
 public class TriantaEnaGame extends SumCardGame {
     public static String name = 
         TextColors.ANSI_YELLOW 
@@ -74,7 +83,7 @@ public class TriantaEnaGame extends SumCardGame {
     }
 
     @Override
-    public void playerMove(Player player, PlayerHand hand) {
+    public boolean playerMove(Player player, PlayerHand hand) {
         int max = 2, input = 0;
         System.out.println(player.getName() + ", please choose what to do for current hand");
         System.out.print("0: view cards, 1: hit, 2: stand");
@@ -89,6 +98,7 @@ public class TriantaEnaGame extends SumCardGame {
                 case 2: stand(hand); break;
             }
         }
+        return true;
     }
 
     @Override

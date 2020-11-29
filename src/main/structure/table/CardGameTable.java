@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: CardGameTable
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package structure.table;
 
 import java.util.ArrayList;
@@ -6,8 +11,8 @@ import structure.cards.*;
 import structure.participant.*;
 
 /**
- * The CardGameTable class inherits both GameTable and CardGames, implementing
- * respective methods.
+ * The CardGameTable class inherits both GameTable and TableFunctions, implementing
+ * respective methods. It is used primarily for accessing players and getting cards
  */
 public class CardGameTable extends GameTable implements TableFunctions{
 
@@ -23,7 +28,10 @@ public class CardGameTable extends GameTable implements TableFunctions{
     public Card getNextCard() {
         return shoe.getNextCard();
     }
-
+    
+    /**
+     * Deal a card to a specific hand
+     */
     @Override
     public void dealCard(Hand hand, Card card) {
         hand.addCard(card);

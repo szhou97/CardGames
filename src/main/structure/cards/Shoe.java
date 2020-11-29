@@ -1,8 +1,17 @@
+/******************************************************************************
+ * Class: Shoe
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package structure.cards;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * The shoe class contains a certain number of decks, and methods to get cards
+ * from these decks
+ */
 public class Shoe {
     private ArrayList<Card> shoe;
     public Shoe(int numDecks) {

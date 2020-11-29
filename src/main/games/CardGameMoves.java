@@ -1,7 +1,14 @@
+/******************************************************************************
+ * Class: CardGameMoves
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package games;
 
-import structure.participant.*;
-
+import structure.participant.Hand;
+/**
+ * Moves that should be performed by card game players
+ */
 public interface CardGameMoves {
     public void hit(Hand hand);
     public void stand(Hand hand);

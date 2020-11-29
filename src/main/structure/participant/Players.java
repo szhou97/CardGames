@@ -1,9 +1,14 @@
+/******************************************************************************
+ * Class: Players
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package structure.participant;
 
 import java.util.ArrayList;
 
 /**
- * The Players object contains a list of Player objects.
+ * The Players object contains a list of Player objects and a dealer object
  */
 public class Players {
     private ArrayList<Player> players;

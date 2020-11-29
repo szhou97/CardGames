@@ -1,13 +1,19 @@
+/******************************************************************************
+ * Class: PlayBlackJack
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package games.blackjack;
 
 import games.Play;
-import games.Replayable;
 import structure.participant.*;
 import structure.table.*;
 import utilities.*;
 
-
-public class PlayBlackJack extends Play implements Replayable {
+/**
+ * This class plays the game of black jack repeatedly, and checks player information
+ */
+public class PlayBlackJack extends Play  {
     public PlayBlackJack(int numPlayers) {
         super(numPlayers);
     }

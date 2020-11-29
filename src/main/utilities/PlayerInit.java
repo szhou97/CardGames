@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Class: PlayerInit
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package utilities;
 
 public class PlayerInit {

@@ -1,7 +1,15 @@
+/******************************************************************************
+ * Class: PlayerHand
+ * Author: Shuaike Zhou
+ * Email: szhou97@bu.edu
+ *****************************************************************************/
 package structure.participant;
 
 import structure.cards.Card;
 
+/**
+ * The playerhand class holds an integer field (bet), which is unique for players
+ */
 public class PlayerHand extends Hand implements CardGamePlayer {
     
     private int bet;
