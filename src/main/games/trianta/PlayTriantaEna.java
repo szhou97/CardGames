@@ -108,7 +108,7 @@ public class PlayTriantaEna extends Play {
         Collections.sort(currPlayers);
         if (dealer == null) {
             System.out.println("Dealer has ran out of money, player with most money will become dealer now");
-            makeDealer(currPlayers.get(0));
+            players.addDealer(makeDealer(currPlayers.get(0)));
         } else {
             Player newDealer = null;
             for (Player player : currPlayers) {
@@ -121,7 +121,6 @@ public class PlayTriantaEna extends Play {
                 }
             }
             if (newDealer != null) {
-                makePlayer(dealer);
                 players.addPlayer(makePlayer(dealer));
                 players.addDealer(makeDealer(newDealer));
                 players.remove(newDealer);
