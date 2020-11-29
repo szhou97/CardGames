@@ -58,7 +58,7 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
         boolean active = false;
         for (Player player : getTable().getPlayers().getPlayers()) {
             for (Hand hand : player.getHands()) {
-                if (hand.getStatus()) {
+                if (!hand.getStatus()) {
                     if (!isBust(hand)) {
                         active = true;
                         break;
@@ -71,12 +71,12 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
         }
 
         if (active) {
-            // Dealer move
             System.out.println("DEALER: Please flip your face down card by press enter");
             Input.pressEnter();
             ArrayList<Card> cards = dealer.getHand().getCards();
             cards.get(faceDownIndex).flipCard(true);
             System.out.println(dealer.getHand());
+            // Dealer move
             while (dealer.getHand().getTotalValue() < dealerCap) {
                 System.out.println("DEALER: Please hit by press enter");
                 Input.pressEnter();
