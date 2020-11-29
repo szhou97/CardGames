@@ -29,6 +29,7 @@ public class TriantaEnaGame extends SumCardGame {
     @Override
     public void startRound() {
         Dealer dealer = getTable().getPlayers().getDealer();
+        dealer.clearHand();
         ArrayList<Player> players = getTable().getPlayers().getPlayers();
 
         boolean play = false;

@@ -19,4 +19,8 @@ public class Dealer extends Participant {
     public DealerHand getHand() {
         return hand;
     }
+
+    public void clearHand() {
+        hand = new DealerHand();
+    }
 }
