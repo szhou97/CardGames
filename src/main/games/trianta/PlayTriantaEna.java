@@ -34,30 +34,17 @@ public class PlayTriantaEna extends Play {
         
         while(play) {
             play = game.play();
-            System.out.println(table.getPlayers().toString(true));
             System.out.println("Players/Dealer with <=0 balance are removed");
+            refreshPlayers(players);
             if (play) {
-                ArrayList<Player> currPlayers = players.getPlayers();
-                ArrayList<Player> availablePlayers = new ArrayList<Player>();
-                for (Player player : currPlayers) {
-                    if (player.getBalance() > 0) {
-                        availablePlayers.add(player);
-                    }
-                }
-                if (players.getDealer().getBalance() <= 0) {
-                    players.addDealer(null);
-                }
-
-                if (availablePlayers.size() == 0) {
-                    System.out.println("Players are out of money, quitting");
-                    break;
+                if (players.getPlayers().size() != 0) {
+                    rotateDealer(players);
                 } else {
-                    players.setPlayers(availablePlayers);
+                    System.out.println("No player left, exiting...");
+                    play = false;
                 }
-
-                rotateDealer(players);
             }
-            System.out.println(table.getPlayers().toString(true));
+            
         }
     }
 
@@ -99,6 +86,29 @@ public class PlayTriantaEna extends Play {
             players.addDealer(dealer);
         }
         return players;
+    }
+
+    @Override
+    public void refreshPlayers(Players players) {
+        ArrayList<Player> currPlayers = players.getPlayers();
+        ArrayList<Player> availablePlayers = new ArrayList<Player>();
+        for (Player player : currPlayers) {
+            player.setBalance(player.getBalance() + player.getMoneyWon());
+            player.setMoneyWon(0);
+            if (player.getBalance() > 0) {
+                availablePlayers.add(player);
+            }
+        }
+        Dealer dealer = players.getDealer();
+        dealer.setBalance(dealer.getBalance() + dealer.getMoneyWon());
+        dealer.setMoneyWon(0);
+        System.out.println(players.toString(true));
+        // Remove dealer if out of money
+        if (players.getDealer().getBalance() <= 0) {
+            players.addDealer(null);
+        } 
+
+        players.setPlayers(availablePlayers);
     }
 
     private void rotateDealer(Players players) {

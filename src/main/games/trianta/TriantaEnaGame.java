@@ -121,6 +121,7 @@ public class TriantaEnaGame extends SumCardGame {
 
     @Override
     public void lose(Player player, Dealer dealer, PlayerHand hand) {
+        System.out.println(player.getName() + " lost " + hand.getBet());
         distribute(player, dealer, -hand.getBet());
     }
 }

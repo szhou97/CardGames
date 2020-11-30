@@ -250,9 +250,5 @@ public abstract class SumCardGame extends CardGame implements CardGameMoves, Mul
     public void distribute(Player player, Dealer dealer, int money) {
         player.setMoneyWon(player.getMoneyWon() + money);
         dealer.setMoneyWon(dealer.getMoneyWon() - money);
-        if (this instanceof TriantaEnaGame) {
-            player.setBalance(player.getBalance() + player.getMoneyWon());
-            dealer.setBalance(dealer.getBalance() + dealer.getMoneyWon());
-        }
     }
 }
